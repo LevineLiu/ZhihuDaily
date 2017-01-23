@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_home"
+            android:icon="@drawable/ic_menu_home"
+            android:title="@string/ic_menu_home" />
+        <item
+            android:id="@+id/nav_recommend"
+            android:icon="@drawable/ic_menu_user_recommend"
+            android:title="@string/ic_menu_recommend" />
+        <item
+            android:id="@+id/nav_company"
+            android:icon="@drawable/ic_menu_big_company"
+            android:title="@string/ic_menu_company" />
+        <item
+            android:id="@+id/nav_internet_security"
+            android:icon="@drawable/ic_menu_internet_security"
+            android:title="@string/ic_menu_security" />
+    </group>
+
+    <item android:title="@string/menu_title_entertainment">
+        <menu android:checkableBehavior="single">
+            <item
+                android:id="@+id/nav_movie"
+                android:title="@string/ic_menu_movie"
+                android:checkable="true"/>
+            <item
+                android:id="@+id/nav_sports"
+                android:title="@string/ic_menu_sports"
+                android:checkable="true"/>
+            <item
+                android:id="@+id/nav_comic"
+                android:title="@string/ic_menu_comic"
+                android:checkable="true"/>
+            <item
+                android:id="@+id/nav_game"
+                android:title="@string/ic_menu_game"
+                android:checkable="true"/>
+
+        </menu>
+    </item>
+
+</menu>

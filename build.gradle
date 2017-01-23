@@ -1,0 +1,51 @@
+ext {
+    configuration = [
+            package             : "com.paulliu.zhihudaily",
+            buildToolsVersion   : "25.0.1",
+            compileVersion      : 24,
+            minSdk              : 15,
+            targetSdk           : 24,
+            version_code        : 1,
+            version_name        : "1.0"
+    ]
+
+    libraries = [
+            supportVersion      : "24.2.1",
+            retrofit            : "2.1.0",
+            dagger              : "2.8",
+            rxjava              : "2.0.4",
+            rxandroid           : "2.0.1",
+            okhttp              : "3.5.0",
+            butterknife         : "8.4.0",
+            picasso             : "2.5.2",
+            retrofit2Rxjava2Adapter : "1.0.0"
+    ]
+
+    testingLibraries = [
+            junit               : "4.12",
+            espresso            : "2.2.2"
+    ]
+
+}
+
+buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:2.2.3'
+
+        // NOTE: Do not place your application dependencies here; they belong
+        // in the individual module build.gradle files
+    }
+}
+
+allprojects {
+    repositories {
+        jcenter()
+    }
+}
+
+task clean(type: Delete) {
+    delete rootProject.buildDir
+}

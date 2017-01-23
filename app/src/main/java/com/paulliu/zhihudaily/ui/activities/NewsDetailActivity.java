@@ -1,0 +1,101 @@
+package com.paulliu.zhihudaily.ui.activities;
+
+import android.os.Bundle;
+import android.text.TextUtils;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.webkit.WebView;
+import android.widget.ImageView;
+import android.widget.TextView;
+
+import com.paulliu.zhihudaily.R;
+import com.paulliu.zhihudaily.entities.NewsDetailEntity;
+import com.paulliu.zhihudaily.mvp.ICommonView;
+import com.paulliu.zhihudaily.mvp.presenter.NewsDetailPresenter;
+import com.paulliu.zhihudaily.ui.BaseAppCompatActivity;
+import com.paulliu.zhihudaily.widgets.WebViewBrowseView;
+import com.squareup.picasso.Picasso;
+
+import javax.inject.Inject;
+
+import butterknife.BindView;
+
+/**
+ * Created on 2017/1/22
+ *
+ * @author LLW
+ */
+
+public class NewsDetailActivity extends BaseAppCompatActivity implements ICommonView<NewsDetailEntity>{
+    public final static String NEWS_DETAIL_ID = "news_detail_id";
+
+    private int mId;
+
+    @BindView(R.id.iv_news_detail) ImageView mNewsDetailIv;
+    @BindView(R.id.wv_news_detail) WebViewBrowseView mNewsDetailWv;
+    @BindView(R.id.tv_copyright) TextView mCopyrightTv;
+    @BindView(R.id.tv_news_detail_title) TextView mNewsDetailTitleTv;
+    @Inject NewsDetailPresenter mPresenter;
+
+    @Override
+    protected void getBundleExtra(Bundle extra) {
+        if (extra != null) {
+            mId = extra.getInt(NEWS_DETAIL_ID);
+        }
+    }
+
+    @Override
+    protected int getLayoutId() {
+        return R.layout.activity_news_detail;
+    }
+
+    @Override
+    protected void initView() {
+        initToolbar();
+        initComponent();
+    }
+
+
+    @Override
+    protected boolean isApplyStatusBarTranslucency() {
+        return false;
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.news_detail, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onSuccess(NewsDetailEntity result) {
+        if(result != null){
+            Picasso.with(this).load(result.getImage()).into(mNewsDetailIv);
+            mNewsDetailWv.loadHtmlWithBody(result.getBody());
+            mCopyrightTv.setText(result.getImage_source());
+            mNewsDetailTitleTv.setText(result.getTitle());
+        }
+    }
+
+    @Override
+    public void onFailure(NewsDetailEntity result) {
+
+    }
+
+    private void initToolbar() {
+        setDisplayHomeAsUp();
+        if (getSupportActionBar() != null)
+            getSupportActionBar().setTitle("");
+    }
+
+    private void initComponent(){
+        getActivityComponent().inject(this);
+        mPresenter.attachView(this);
+        mPresenter.getNewsDetail(mId);
+    }
+}

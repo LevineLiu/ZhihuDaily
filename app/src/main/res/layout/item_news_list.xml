@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/card_view_item_news"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="@dimen/activity_vertical_margin"
+    android:layout_marginRight="@dimen/activity_vertical_margin"
+    android:layout_marginTop="@dimen/ten_dp"
+    android:orientation="vertical"
+    tools:ignore="HardCodedText, contentDescription">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="@dimen/activity_vertical_margin">
+
+        <TextView
+            android:id="@+id/tv_item_news_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="@dimen/ten_dp"
+            android:layout_weight="1"
+            android:maxLines="2"
+            android:textColor="@android:color/black"
+            android:textSize="@dimen/big_small_text"/>
+
+        <RelativeLayout
+            android:layout_width="@dimen/home_news_image_width"
+            android:layout_height="@dimen/home_news_image_height"
+            android:layout_gravity="center_vertical">
+
+            <ImageView
+                android:id="@+id/iv_item_news"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:scaleType="centerCrop"/>
+        </RelativeLayout>
+    </LinearLayout>
+</android.support.v7.widget.CardView>
