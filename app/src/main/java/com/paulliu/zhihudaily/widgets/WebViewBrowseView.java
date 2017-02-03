@@ -159,10 +159,6 @@ public class WebViewBrowseView extends LinearLayout implements View.OnClickListe
         return "<html>" + head + "<body>" + bodyHTML + "</body></html>";
     }
 
-    public void isDisplayProgress(boolean isDisplayed) {
-        mIsProgressDisplayed = isDisplayed;
-    }
-
     public boolean canGoBack() {
         return mWebView.canGoBack();
     }

@@ -44,7 +44,7 @@ public class HomeBannerPagerAdapter extends BasePagerAdapter {
         final TopNewsEntity topNewsEntity = mBannerList.get(position);
         if(convertView == null){
             viewHolder = new HomeBannerViewHolder();
-            convertView = mInflater.inflate(R.layout.item_home_banner, parent, false);
+            convertView = mInflater.inflate(R.layout.common_banner, parent, false);
             viewHolder.bannerIv = ButterKnife.findById(convertView, R.id.iv_banner);
             viewHolder.titleTv = ButterKnife.findById(convertView, R.id.tv_banner_title);
             convertView.setTag(viewHolder);

@@ -8,6 +8,7 @@ import com.paulliu.zhihudaily.ui.BaseAppCompatActivity;
 import com.paulliu.zhihudaily.ui.activities.NewsDetailActivity;
 import com.paulliu.zhihudaily.ui.activities.SplashActivity;
 import com.paulliu.zhihudaily.ui.fragments.HomeFragment;
+import com.paulliu.zhihudaily.ui.fragments.ThemeFragment;
 
 import dagger.Component;
 
@@ -23,4 +24,5 @@ public interface ActivityComponent {
     void inject(SplashActivity activity);
     void inject(NewsDetailActivity activity);
     void inject(HomeFragment fragment);
+    void inject(ThemeFragment fragment);
 }

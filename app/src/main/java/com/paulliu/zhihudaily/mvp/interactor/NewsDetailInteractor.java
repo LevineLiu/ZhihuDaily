@@ -2,7 +2,6 @@ package com.paulliu.zhihudaily.mvp.interactor;
 
 import com.paulliu.zhihudaily.api.ZhiHuDailyApi;
 import com.paulliu.zhihudaily.entities.NewsDetailEntity;
-import com.paulliu.zhihudaily.mvp.ICommonInteractor;
 
 import javax.inject.Inject;
 
@@ -25,7 +24,7 @@ public class NewsDetailInteractor{
     }
 
     public Observable<NewsDetailEntity> createNewsDetailObservable(int id) {
-        return mApi.getNewsDetial(id)
+        return mApi.getNewsDetail(id)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread());
     }

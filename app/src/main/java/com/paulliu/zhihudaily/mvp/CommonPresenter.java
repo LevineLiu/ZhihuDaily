@@ -19,7 +19,7 @@ public abstract class CommonPresenter<T> {
 
     public void onDestroyView(){
         mView = null;
-        if(mDisposable != null)
+        if(mDisposable != null && !mDisposable.isDisposed())
             mDisposable.dispose();
     }
 }

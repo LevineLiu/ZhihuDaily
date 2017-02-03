@@ -9,7 +9,7 @@
     <dimen name="ten_dp">10dp</dimen>
     <dimen name="dot_indexer_height">5dp</dimen>
 
-    <dimen name="home_banner_height">250dp</dimen>
+    <dimen name="banner_height">250dp</dimen>
     <dimen name="news_detail_height">230dp</dimen>
     <dimen name="home_news_image_width">80dp</dimen>
     <dimen name="home_news_image_height">70dp</dimen>

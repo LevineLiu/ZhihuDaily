@@ -3,29 +3,19 @@ package com.paulliu.zhihudaily.ui.activities;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
-import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
 import com.paulliu.zhihudaily.R;
-import com.paulliu.zhihudaily.listener.OnListItemClickListener;
-import com.paulliu.zhihudaily.listener.OnLoadMoreListener;
 import com.paulliu.zhihudaily.ui.BaseAppCompatActivity;
-import com.paulliu.zhihudaily.ui.BaseFragment;
 import com.paulliu.zhihudaily.ui.FragmentSwitcher;
 import com.paulliu.zhihudaily.ui.fragments.HomeFragment;
-
-import java.util.ArrayList;
-import java.util.List;
+import com.paulliu.zhihudaily.ui.fragments.ThemeFragment;
 
 import butterknife.BindView;
 
@@ -39,7 +29,7 @@ public class MainActivity extends BaseAppCompatActivity
     private final static int FRAGMENT_MOVIE = 4;
     private final static int FRAGMENT_SPORTS = 5;
     private final static int FRAGMENT_COMIC = 6;
-    private final static int FRAGMENT_GANME = 7;
+    private final static int FRAGMENT_GAME = 7;
 
     private FragmentSwitcher mFragmentSwitcher;
 
@@ -129,41 +119,72 @@ public class MainActivity extends BaseAppCompatActivity
                     mFragmentSwitcher.addFragment(FRAGMENT_HOME, new HomeFragment(), FragmentSwitcher.OPERATION_REPLACE);
                 mFragmentSwitcher.switchFragment(FRAGMENT_HOME);
                 break;
-//            case R.id.nav_recommend:
-//                if(mFragmentSwitcher.getFragment(FRAGMENT_RECOMMEND) == null)
-//                    mFragmentSwitcher.addFragment(FRAGMENT_RECOMMEND, new HomeFragment(), FragmentSwitcher.OPERATION_REPLACE);
-//                mFragmentSwitcher.switchFragment(FRAGMENT_RECOMMEND);
-//                break;
-//            case R.id.nav_company:
-//                if(mFragmentSwitcher.getFragment(FRAGMENT_COMPANY) == null)
-//                    mFragmentSwitcher.addFragment(FRAGMENT_COMPANY, new HomeFragment(), FragmentSwitcher.OPERATION_REPLACE);
-//                mFragmentSwitcher.switchFragment(FRAGMENT_COMPANY);
-//                break;
-//            case R.id.nav_internet_security:
-//                if(mFragmentSwitcher.getFragment(FRAGMENT_SECURITY) == null)
-//                    mFragmentSwitcher.addFragment(FRAGMENT_SECURITY, new HomeFragment(), FragmentSwitcher.OPERATION_REPLACE);
-//                mFragmentSwitcher.switchFragment(FRAGMENT_SECURITY);
-//                break;
-//            case R.id.nav_movie:
-//                if(mFragmentSwitcher.getFragment(FRAGMENT_MOVIE) == null)
-//                    mFragmentSwitcher.addFragment(FRAGMENT_MOVIE, new HomeFragment(), FragmentSwitcher.OPERATION_REPLACE);
-//                mFragmentSwitcher.switchFragment(FRAGMENT_MOVIE);
-//                break;
-//            case R.id.nav_sports:
-//                if(mFragmentSwitcher.getFragment(FRAGMENT_SPORTS) == null)
-//                    mFragmentSwitcher.addFragment(FRAGMENT_SPORTS, new HomeFragment(), FragmentSwitcher.OPERATION_REPLACE);
-//                mFragmentSwitcher.switchFragment(FRAGMENT_SPORTS);
-//                break;
-//            case R.id.nav_comic:
-//                if(mFragmentSwitcher.getFragment(FRAGMENT_COMIC) == null)
-//                    mFragmentSwitcher.addFragment(FRAGMENT_COMIC, new HomeFragment(), FragmentSwitcher.OPERATION_REPLACE);
-//                mFragmentSwitcher.switchFragment(FRAGMENT_COMIC);
-//                break;
-//            case R.id.nav_game:
-//                if(mFragmentSwitcher.getFragment(FRAGMENT_GANME) == null)
-//                    mFragmentSwitcher.addFragment(FRAGMENT_GANME, new HomeFragment(), FragmentSwitcher.OPERATION_REPLACE);
-//                mFragmentSwitcher.switchFragment(FRAGMENT_GANME);
-//                break;
+            case R.id.nav_recommend:
+                if(mFragmentSwitcher.getFragment(FRAGMENT_RECOMMEND) == null){
+                    ThemeFragment fragment = new ThemeFragment();
+                    Bundle bundle = new Bundle();
+                    bundle.putInt(ThemeFragment.EXTRA_THEME_ID, 12);
+                    fragment.setArguments(bundle);
+                    mFragmentSwitcher.addFragment(FRAGMENT_RECOMMEND, fragment, FragmentSwitcher.OPERATION_REPLACE);
+                }
+                mFragmentSwitcher.switchFragment(FRAGMENT_RECOMMEND);
+                break;
+            case R.id.nav_company:
+                if(mFragmentSwitcher.getFragment(FRAGMENT_COMPANY) == null)
+                    mFragmentSwitcher.addFragment(FRAGMENT_COMPANY, new HomeFragment(), FragmentSwitcher.OPERATION_REPLACE);
+                mFragmentSwitcher.switchFragment(FRAGMENT_COMPANY);
+                break;
+            case R.id.nav_internet_security:
+                if(mFragmentSwitcher.getFragment(FRAGMENT_SECURITY) == null){
+                    ThemeFragment fragment = new ThemeFragment();
+                    Bundle bundle = new Bundle();
+                    bundle.putInt(ThemeFragment.EXTRA_THEME_ID, 10);
+                    fragment.setArguments(bundle);
+                    mFragmentSwitcher.addFragment(FRAGMENT_SECURITY, fragment, FragmentSwitcher.OPERATION_REPLACE);
+                }
+                mFragmentSwitcher.switchFragment(FRAGMENT_SECURITY);
+                break;
+            case R.id.nav_movie:
+                if(mFragmentSwitcher.getFragment(FRAGMENT_MOVIE) == null){
+                    ThemeFragment fragment = new ThemeFragment();
+                    Bundle bundle = new Bundle();
+                    bundle.putInt(ThemeFragment.EXTRA_THEME_ID, 3);
+                    fragment.setArguments(bundle);
+                    mFragmentSwitcher.addFragment(FRAGMENT_MOVIE, fragment, FragmentSwitcher.OPERATION_REPLACE);
+                }
+
+                mFragmentSwitcher.switchFragment(FRAGMENT_MOVIE);
+                break;
+            case R.id.nav_sports:
+                if(mFragmentSwitcher.getFragment(FRAGMENT_SPORTS) == null){
+                    ThemeFragment fragment = new ThemeFragment();
+                    Bundle bundle = new Bundle();
+                    bundle.putInt(ThemeFragment.EXTRA_THEME_ID, 8);
+                    fragment.setArguments(bundle);
+                    mFragmentSwitcher.addFragment(FRAGMENT_SPORTS, fragment, FragmentSwitcher.OPERATION_REPLACE);
+                }
+                mFragmentSwitcher.switchFragment(FRAGMENT_SPORTS);
+                break;
+            case R.id.nav_comic:
+                if(mFragmentSwitcher.getFragment(FRAGMENT_COMIC) == null){
+                    ThemeFragment fragment = new ThemeFragment();
+                    Bundle bundle = new Bundle();
+                    bundle.putInt(ThemeFragment.EXTRA_THEME_ID, 9);
+                    fragment.setArguments(bundle);
+                    mFragmentSwitcher.addFragment(FRAGMENT_COMIC, fragment, FragmentSwitcher.OPERATION_REPLACE);
+                }
+                mFragmentSwitcher.switchFragment(FRAGMENT_COMIC);
+                break;
+            case R.id.nav_game:
+                if(mFragmentSwitcher.getFragment(FRAGMENT_GAME) == null){
+                    ThemeFragment fragment = new ThemeFragment();
+                    Bundle bundle = new Bundle();
+                    bundle.putInt(ThemeFragment.EXTRA_THEME_ID, 2);
+                    fragment.setArguments(bundle);
+                    mFragmentSwitcher.addFragment(FRAGMENT_GAME, new HomeFragment(), FragmentSwitcher.OPERATION_REPLACE);
+                }
+                mFragmentSwitcher.switchFragment(FRAGMENT_GAME);
+                break;
         }
         mDrawerLayout.closeDrawer(GravityCompat.START);
         return true;

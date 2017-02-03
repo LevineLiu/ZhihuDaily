@@ -1,5 +1,6 @@
 package com.paulliu.zhihudaily.ui.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.Menu;
@@ -30,6 +31,7 @@ public class NewsDetailActivity extends BaseAppCompatActivity implements ICommon
     public final static String NEWS_DETAIL_ID = "news_detail_id";
 
     private int mId;
+    private String mShareUrl;
 
     @BindView(R.id.iv_news_detail) ImageView mNewsDetailIv;
     @BindView(R.id.wv_news_detail) WebViewBrowseView mNewsDetailWv;
@@ -69,13 +71,25 @@ public class NewsDetailActivity extends BaseAppCompatActivity implements ICommon
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.action_share:
+                Intent intent = new Intent(Intent.ACTION_SEND);
+                intent.putExtra(Intent.EXTRA_TEXT, mShareUrl);
+                intent.setType("text/plain");
+                startActivity(intent);
+                break;
+            case R.id.action_comment:
+                break;
+        }
         return super.onOptionsItemSelected(item);
     }
 
     @Override
     public void onSuccess(NewsDetailEntity result) {
         if(result != null){
-            Picasso.with(this).load(result.getImage()).into(mNewsDetailIv);
+            mShareUrl = result.getShare_url();
+            if(!TextUtils.isEmpty(result.getImage()))
+                Picasso.with(this).load(result.getImage()).into(mNewsDetailIv);
             mNewsDetailWv.loadHtmlWithBody(result.getBody());
             mCopyrightTv.setText(result.getImage_source());
             mNewsDetailTitleTv.setText(result.getTitle());
