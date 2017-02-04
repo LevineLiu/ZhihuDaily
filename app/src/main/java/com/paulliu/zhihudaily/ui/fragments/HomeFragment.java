@@ -5,13 +5,11 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
 import com.paulliu.zhihudaily.R;
 import com.paulliu.zhihudaily.constants.Constants;
 import com.paulliu.zhihudaily.entities.DailyNews;
-import com.paulliu.zhihudaily.entities.NewsDetailEntity;
 import com.paulliu.zhihudaily.entities.NewsEntity;
 import com.paulliu.zhihudaily.listener.OnListItemClickListener;
 import com.paulliu.zhihudaily.listener.OnLoadMoreListener;
@@ -23,6 +21,7 @@ import com.paulliu.zhihudaily.ui.activities.NewsDetailActivity;
 import com.paulliu.zhihudaily.ui.adapter.HomeBannerPagerAdapter;
 import com.paulliu.zhihudaily.ui.adapter.HomeNewsListAdapter;
 import com.paulliu.zhihudaily.widgets.DotsIndexer;
+import com.paulliu.zhihudaily.widgets.SpeedyLinearLayoutManager;
 
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
@@ -130,7 +129,7 @@ public class HomeFragment extends BaseFragment implements SwipeRefreshLayout.OnR
         mRefreshLayout.setOnRefreshListener(this);
         mRefreshLayout.setColorSchemeColors(getResources().getColor(R.color.colorPrimary));
 
-        LinearLayoutManager layoutManager = new LinearLayoutManager(mContext);
+        SpeedyLinearLayoutManager layoutManager = new SpeedyLinearLayoutManager(mContext);
         mAdapter = new HomeNewsListAdapter(mContext, layoutManager) {
             @Override
             public void initViewPager(ViewPager viewPager, DotsIndexer dotsIndexer) {
@@ -209,6 +208,13 @@ public class HomeFragment extends BaseFragment implements SwipeRefreshLayout.OnR
                 }, 0, SCHEDULED_FIXED_RATE, TimeUnit.SECONDS);
             }
         }, SCHEDULED_FIXED_RATE * 1000);
+    }
+
+    /**
+     * when clicking the toolbar, scroll to top
+     */
+    public void scrollToTop(){
+        mRecyclerView.smoothScrollToPosition(0);
     }
 
 }

@@ -3,6 +3,7 @@ package com.paulliu.zhihudaily.ui.activities;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.Fragment;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -32,6 +33,7 @@ public class MainActivity extends BaseAppCompatActivity
     private final static int FRAGMENT_GAME = 7;
 
     private FragmentSwitcher mFragmentSwitcher;
+    private int mCurrentFragmentPosition;
 
 
     @BindView(R.id.fab) FloatingActionButton mFab;
@@ -67,8 +69,20 @@ public class MainActivity extends BaseAppCompatActivity
         mNavigationView.setCheckedItem(R.id.nav_home);
         mFragmentSwitcher = new FragmentSwitcher(this, R.id.content_main);
         if(mFragmentSwitcher.getFragment(FRAGMENT_HOME) == null)
-            mFragmentSwitcher.addFragment(FRAGMENT_HOME, new HomeFragment(), FragmentSwitcher.OPERATION_REPLACE);
+            mFragmentSwitcher.addFragment(FRAGMENT_HOME, new HomeFragment(), FragmentSwitcher.OPERATION_SHOW_HIDE);
         mFragmentSwitcher.switchFragment(FRAGMENT_HOME);
+        mToolbar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Fragment fragment = mFragmentSwitcher.getFragment(mCurrentFragmentPosition);
+                if(fragment != null){
+                    if(fragment instanceof HomeFragment)
+                        ((HomeFragment) fragment).scrollToTop();
+                    else
+                        ((ThemeFragment) fragment).scrollToTop();
+                }
+            }
+        });
     }
 
     @Override
@@ -115,73 +129,86 @@ public class MainActivity extends BaseAppCompatActivity
         int id = item.getItemId();
         switch (id){
             case R.id.nav_home:
+                mCurrentFragmentPosition = FRAGMENT_HOME;
                 if(mFragmentSwitcher.getFragment(FRAGMENT_HOME) == null)
-                    mFragmentSwitcher.addFragment(FRAGMENT_HOME, new HomeFragment(), FragmentSwitcher.OPERATION_REPLACE);
+                    mFragmentSwitcher.addFragment(FRAGMENT_HOME, new HomeFragment(), FragmentSwitcher.OPERATION_SHOW_HIDE);
                 mFragmentSwitcher.switchFragment(FRAGMENT_HOME);
                 break;
             case R.id.nav_recommend:
+                mCurrentFragmentPosition = FRAGMENT_RECOMMEND;
                 if(mFragmentSwitcher.getFragment(FRAGMENT_RECOMMEND) == null){
                     ThemeFragment fragment = new ThemeFragment();
                     Bundle bundle = new Bundle();
                     bundle.putInt(ThemeFragment.EXTRA_THEME_ID, 12);
                     fragment.setArguments(bundle);
-                    mFragmentSwitcher.addFragment(FRAGMENT_RECOMMEND, fragment, FragmentSwitcher.OPERATION_REPLACE);
+                    mFragmentSwitcher.addFragment(FRAGMENT_RECOMMEND, fragment, FragmentSwitcher.OPERATION_SHOW_HIDE);
                 }
                 mFragmentSwitcher.switchFragment(FRAGMENT_RECOMMEND);
                 break;
             case R.id.nav_company:
-                if(mFragmentSwitcher.getFragment(FRAGMENT_COMPANY) == null)
-                    mFragmentSwitcher.addFragment(FRAGMENT_COMPANY, new HomeFragment(), FragmentSwitcher.OPERATION_REPLACE);
+                mCurrentFragmentPosition = FRAGMENT_COMPANY;
+                if(mFragmentSwitcher.getFragment(FRAGMENT_COMPANY) == null){
+                    ThemeFragment fragment = new ThemeFragment();
+                    Bundle bundle = new Bundle();
+                    bundle.putInt(ThemeFragment.EXTRA_THEME_ID, 5);
+                    fragment.setArguments(bundle);
+                    mFragmentSwitcher.addFragment(FRAGMENT_COMPANY, fragment, FragmentSwitcher.OPERATION_SHOW_HIDE);
+                }
                 mFragmentSwitcher.switchFragment(FRAGMENT_COMPANY);
                 break;
             case R.id.nav_internet_security:
+                mCurrentFragmentPosition = FRAGMENT_SECURITY;
                 if(mFragmentSwitcher.getFragment(FRAGMENT_SECURITY) == null){
                     ThemeFragment fragment = new ThemeFragment();
                     Bundle bundle = new Bundle();
                     bundle.putInt(ThemeFragment.EXTRA_THEME_ID, 10);
                     fragment.setArguments(bundle);
-                    mFragmentSwitcher.addFragment(FRAGMENT_SECURITY, fragment, FragmentSwitcher.OPERATION_REPLACE);
+                    mFragmentSwitcher.addFragment(FRAGMENT_SECURITY, fragment, FragmentSwitcher.OPERATION_SHOW_HIDE);
                 }
                 mFragmentSwitcher.switchFragment(FRAGMENT_SECURITY);
                 break;
             case R.id.nav_movie:
+                mCurrentFragmentPosition = FRAGMENT_MOVIE;
                 if(mFragmentSwitcher.getFragment(FRAGMENT_MOVIE) == null){
                     ThemeFragment fragment = new ThemeFragment();
                     Bundle bundle = new Bundle();
                     bundle.putInt(ThemeFragment.EXTRA_THEME_ID, 3);
                     fragment.setArguments(bundle);
-                    mFragmentSwitcher.addFragment(FRAGMENT_MOVIE, fragment, FragmentSwitcher.OPERATION_REPLACE);
+                    mFragmentSwitcher.addFragment(FRAGMENT_MOVIE, fragment, FragmentSwitcher.OPERATION_SHOW_HIDE);
                 }
 
                 mFragmentSwitcher.switchFragment(FRAGMENT_MOVIE);
                 break;
             case R.id.nav_sports:
+                mCurrentFragmentPosition = FRAGMENT_SPORTS;
                 if(mFragmentSwitcher.getFragment(FRAGMENT_SPORTS) == null){
                     ThemeFragment fragment = new ThemeFragment();
                     Bundle bundle = new Bundle();
                     bundle.putInt(ThemeFragment.EXTRA_THEME_ID, 8);
                     fragment.setArguments(bundle);
-                    mFragmentSwitcher.addFragment(FRAGMENT_SPORTS, fragment, FragmentSwitcher.OPERATION_REPLACE);
+                    mFragmentSwitcher.addFragment(FRAGMENT_SPORTS, fragment, FragmentSwitcher.OPERATION_SHOW_HIDE);
                 }
                 mFragmentSwitcher.switchFragment(FRAGMENT_SPORTS);
                 break;
             case R.id.nav_comic:
+                mCurrentFragmentPosition = FRAGMENT_COMIC;
                 if(mFragmentSwitcher.getFragment(FRAGMENT_COMIC) == null){
                     ThemeFragment fragment = new ThemeFragment();
                     Bundle bundle = new Bundle();
                     bundle.putInt(ThemeFragment.EXTRA_THEME_ID, 9);
                     fragment.setArguments(bundle);
-                    mFragmentSwitcher.addFragment(FRAGMENT_COMIC, fragment, FragmentSwitcher.OPERATION_REPLACE);
+                    mFragmentSwitcher.addFragment(FRAGMENT_COMIC, fragment, FragmentSwitcher.OPERATION_SHOW_HIDE);
                 }
                 mFragmentSwitcher.switchFragment(FRAGMENT_COMIC);
                 break;
             case R.id.nav_game:
+                mCurrentFragmentPosition = FRAGMENT_GAME;
                 if(mFragmentSwitcher.getFragment(FRAGMENT_GAME) == null){
                     ThemeFragment fragment = new ThemeFragment();
                     Bundle bundle = new Bundle();
                     bundle.putInt(ThemeFragment.EXTRA_THEME_ID, 2);
                     fragment.setArguments(bundle);
-                    mFragmentSwitcher.addFragment(FRAGMENT_GAME, new HomeFragment(), FragmentSwitcher.OPERATION_REPLACE);
+                    mFragmentSwitcher.addFragment(FRAGMENT_GAME, fragment, FragmentSwitcher.OPERATION_SHOW_HIDE);
                 }
                 mFragmentSwitcher.switchFragment(FRAGMENT_GAME);
                 break;

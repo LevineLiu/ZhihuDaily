@@ -2,11 +2,14 @@ package com.paulliu.zhihudaily.ui.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.CollapsingToolbarLayout;
 import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.webkit.WebView;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.paulliu.zhihudaily.R;
@@ -37,6 +40,7 @@ public class NewsDetailActivity extends BaseAppCompatActivity implements ICommon
     @BindView(R.id.wv_news_detail) WebViewBrowseView mNewsDetailWv;
     @BindView(R.id.tv_copyright) TextView mCopyrightTv;
     @BindView(R.id.tv_news_detail_title) TextView mNewsDetailTitleTv;
+    @BindView(R.id.rl_news_detail_banner) RelativeLayout mBannerRl;
     @Inject NewsDetailPresenter mPresenter;
 
     @Override
@@ -88,11 +92,14 @@ public class NewsDetailActivity extends BaseAppCompatActivity implements ICommon
     public void onSuccess(NewsDetailEntity result) {
         if(result != null){
             mShareUrl = result.getShare_url();
-            if(!TextUtils.isEmpty(result.getImage()))
+            if(!TextUtils.isEmpty(result.getImage())){
                 Picasso.with(this).load(result.getImage()).into(mNewsDetailIv);
+                mCopyrightTv.setText(result.getImage_source());
+                mNewsDetailTitleTv.setText(result.getTitle());
+            }
+            else
+                mBannerRl.setVisibility(View.GONE);
             mNewsDetailWv.loadHtmlWithBody(result.getBody());
-            mCopyrightTv.setText(result.getImage_source());
-            mNewsDetailTitleTv.setText(result.getTitle());
         }
     }
 

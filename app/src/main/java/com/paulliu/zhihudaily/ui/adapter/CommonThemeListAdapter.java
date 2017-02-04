@@ -5,14 +5,20 @@ import android.graphics.Bitmap;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.paulliu.zhihudaily.R;
+import com.paulliu.zhihudaily.entities.EditorEntity;
 import com.paulliu.zhihudaily.entities.NewsEntity;
+import com.paulliu.zhihudaily.entities.ThemeEntity;
 import com.paulliu.zhihudaily.ui.adapter.base.RecyclerViewLoadMoreAdapter;
+import com.paulliu.zhihudaily.widgets.CircleTransform;
 import com.squareup.picasso.Picasso;
 
 import butterknife.ButterKnife;
@@ -23,18 +29,22 @@ import butterknife.ButterKnife;
  * @author LLW
  */
 
-public class CommonThemeListAdapter extends RecyclerViewLoadMoreAdapter<NewsEntity>{
+public class CommonThemeListAdapter extends RecyclerViewLoadMoreAdapter<NewsEntity> {
+    private ThemeEntity mThemeEntity;
 
     public CommonThemeListAdapter(Context context, RecyclerView.LayoutManager layoutManager) {
         super(context, layoutManager);
     }
 
+    public void setHeaderInfo(ThemeEntity themeEntity) {
+        mThemeEntity = themeEntity;
+    }
+
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         if (viewType == TYPE_HEADER) {
-            return new CommonThemeListAdapter.HeaderViewHolder(mInflater.inflate(R.layout.common_banner, parent, false));
-        }
-        else
+            return new CommonThemeListAdapter.HeaderViewHolder(mInflater.inflate(R.layout.theme_header, parent, false));
+        } else
             return super.onCreateViewHolder(parent, viewType);
     }
 
@@ -47,22 +57,38 @@ public class CommonThemeListAdapter extends RecyclerViewLoadMoreAdapter<NewsEnti
     protected void onBindItemViewHolder(RecyclerView.ViewHolder viewHolder, int position) {
         switch (getItemViewType(position)) {
             case TYPE_HEADER:
-
+                if (!TextUtils.isEmpty(mThemeEntity.getBackground())) {
+                    Picasso.with(mContext).load(mThemeEntity.getBackground()).into(((HeaderViewHolder) viewHolder).bannerIv);
+                    ((HeaderViewHolder) viewHolder).titleTv.setText(mThemeEntity.getDescription());
+                } else
+                    ((HeaderViewHolder) viewHolder).contentLayout.setVisibility(View.GONE);
+                ((HeaderViewHolder) viewHolder).recommenderTv.setText("主编");
+                if (((HeaderViewHolder) viewHolder).recommenderLl.getChildCount() == 1) {
+                    for (EditorEntity entity : mThemeEntity.getEditors()) {
+                        ImageView imageView = new ImageView(mContext);
+                        int diameter = mContext.getResources().getDimensionPixelSize(R.dimen.circle_image_diameter);
+                        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(diameter, diameter);
+                        layoutParams.leftMargin = mContext.getResources().getDimensionPixelSize(R.dimen.activity_vertical_margin);
+                        imageView.setLayoutParams(layoutParams);
+                        Picasso.with(mContext).load(entity.getAvatar()).transform(new CircleTransform()).into(imageView);
+                        ((HeaderViewHolder) viewHolder).recommenderLl.addView(imageView);
+                    }
+                }
                 break;
             case TYPE_ITEM:
                 final NewsEntity newsEntity = mData.get(position - 1);
-                if(newsEntity.getImages() != null && newsEntity.getImages().size() != 0)
+                if (newsEntity.getImages() != null && newsEntity.getImages().size() != 0)
                     Picasso.with(mContext)
                             .load(newsEntity.getImages().get(0))
                             .placeholder(R.drawable.progress_animation)
                             .resizeDimen(R.dimen.home_news_image_width, R.dimen.home_news_image_height)
                             .config(Bitmap.Config.RGB_565)
-                            .into(((CommonThemeListAdapter.ItemViewHolder) viewHolder).imageView);
-                ((CommonThemeListAdapter.ItemViewHolder) viewHolder).titleTv.setText(newsEntity.getTitle());
-                ((CommonThemeListAdapter.ItemViewHolder) viewHolder).cardView.setOnClickListener(new View.OnClickListener() {
+                            .into(((ItemViewHolder) viewHolder).imageView);
+                ((ItemViewHolder) viewHolder).titleTv.setText(newsEntity.getTitle());
+                ((ItemViewHolder) viewHolder).cardView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        if(mOnListItemClickListener != null)
+                        if (mOnListItemClickListener != null)
                             mOnListItemClickListener.onItemClick(newsEntity);
                     }
                 });
@@ -80,7 +106,7 @@ public class CommonThemeListAdapter extends RecyclerViewLoadMoreAdapter<NewsEnti
 
     @Override
     public int getItemCount() {
-        if(mData.size() == 0 && mData.size() == 0)
+        if (mData == null || mData.size() == 0)
             return 0;
         else
             return mData.size() + 2;//1 for header, 1 for footer
@@ -95,11 +121,17 @@ public class CommonThemeListAdapter extends RecyclerViewLoadMoreAdapter<NewsEnti
     private static class HeaderViewHolder extends RecyclerView.ViewHolder {
         ImageView bannerIv;
         TextView titleTv;
+        RelativeLayout contentLayout;
+        TextView recommenderTv;
+        LinearLayout recommenderLl;
 
         public HeaderViewHolder(View v) {
             super(v);
             bannerIv = ButterKnife.findById(v, R.id.iv_banner);
             titleTv = ButterKnife.findById(v, R.id.tv_banner_title);
+            contentLayout = ButterKnife.findById(v, R.id.rl_common_banner);
+            recommenderTv = ButterKnife.findById(v, R.id.tv_recommender);
+            recommenderLl = ButterKnife.findById(v, R.id.ll_theme_recommender);
         }
     }
 
