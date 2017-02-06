@@ -34,6 +34,21 @@
             android:configChanges="keyboardHidden|screenSize|orientation"
             android:screenOrientation="portrait">
         </activity>
+
+        <activity
+            android:name=".ui.activities.EditorListActivity"
+            android:configChanges="keyboardHidden|screenSize|orientation"
+            android:screenOrientation="portrait"/>
+
+        <activity
+            android:name=".ui.BaseWebViewActivity"
+            android:configChanges="keyboardHidden|screenSize|orientation"
+            android:screenOrientation="portrait"/>
+
+        <activity
+            android:name=".ui.activities.DatePickerActivity"
+            android:configChanges="keyboardHidden|screenSize|orientation"
+            android:screenOrientation="portrait"/>
     </application>
 
 </manifest>

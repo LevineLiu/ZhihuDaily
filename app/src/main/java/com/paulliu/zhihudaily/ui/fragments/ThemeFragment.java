@@ -1,11 +1,13 @@
 package com.paulliu.zhihudaily.ui.fragments;
 
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.RecyclerView;
 
 import com.paulliu.zhihudaily.R;
 import com.paulliu.zhihudaily.constants.Constants;
+import com.paulliu.zhihudaily.entities.EditorEntity;
 import com.paulliu.zhihudaily.entities.NewsEntity;
 import com.paulliu.zhihudaily.entities.ThemeEntity;
 import com.paulliu.zhihudaily.listener.OnListItemClickListener;
@@ -14,10 +16,12 @@ import com.paulliu.zhihudaily.mvp.ICommonListView;
 import com.paulliu.zhihudaily.mvp.presenter.ThemeFragmentPresenter;
 import com.paulliu.zhihudaily.ui.BaseAppCompatActivity;
 import com.paulliu.zhihudaily.ui.BaseFragment;
+import com.paulliu.zhihudaily.ui.activities.EditorListActivity;
 import com.paulliu.zhihudaily.ui.activities.NewsDetailActivity;
 import com.paulliu.zhihudaily.ui.adapter.CommonThemeListAdapter;
 import com.paulliu.zhihudaily.widgets.SpeedyLinearLayoutManager;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -37,6 +41,7 @@ public class ThemeFragment extends BaseFragment implements SwipeRefreshLayout.On
     private int mThemeId;
     private int mStoryId;//story id of the last story
     private CommonThemeListAdapter mAdapter;
+    private List<EditorEntity> mEditorList;
 
     @Inject ThemeFragmentPresenter mPresenter;
 
@@ -81,6 +86,7 @@ public class ThemeFragment extends BaseFragment implements SwipeRefreshLayout.On
         mRefreshLayout.setRefreshing(false);
         if(result == null)
             return;
+        mEditorList = result.getEditors();
         List<NewsEntity> stories = result.getStories();
         mAdapter.setHeaderInfo(result);
         mAdapter.setData(stories);
@@ -122,7 +128,14 @@ public class ThemeFragment extends BaseFragment implements SwipeRefreshLayout.On
 
         SpeedyLinearLayoutManager layoutManager = new SpeedyLinearLayoutManager(mContext);
 
-        mAdapter = new CommonThemeListAdapter(mContext, layoutManager);
+        mAdapter = new CommonThemeListAdapter(mContext, layoutManager){
+            @Override
+            public void navigateToEditorList() {
+                Bundle bundle = new Bundle();
+                bundle.putParcelableArrayList(EditorListActivity.EXTRA_EDITORS, (ArrayList<? extends Parcelable>) mEditorList);
+                navigateTo(EditorListActivity.class, bundle);
+            }
+        };
         mRecyclerView.setLayoutManager(layoutManager);
         mRecyclerView.addOnScrollListener(mAdapter.getOnScrollListener());
         mAdapter.setOnLoadMoreListener(this);

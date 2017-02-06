@@ -2,7 +2,6 @@ package com.paulliu.zhihudaily.ui.adapter;
 
 import android.content.Context;
 import android.graphics.Bitmap;
-import android.support.v4.view.ViewPager;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
@@ -63,10 +62,11 @@ public class CommonThemeListAdapter extends RecyclerViewLoadMoreAdapter<NewsEnti
                 } else
                     ((HeaderViewHolder) viewHolder).contentLayout.setVisibility(View.GONE);
                 ((HeaderViewHolder) viewHolder).recommenderTv.setText("主编");
+
                 if (((HeaderViewHolder) viewHolder).recommenderLl.getChildCount() == 1) {
                     for (EditorEntity entity : mThemeEntity.getEditors()) {
                         ImageView imageView = new ImageView(mContext);
-                        int diameter = mContext.getResources().getDimensionPixelSize(R.dimen.circle_image_diameter);
+                        int diameter = mContext.getResources().getDimensionPixelSize(R.dimen.small_circle_image_diameter);
                         LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(diameter, diameter);
                         layoutParams.leftMargin = mContext.getResources().getDimensionPixelSize(R.dimen.activity_vertical_margin);
                         imageView.setLayoutParams(layoutParams);
@@ -74,6 +74,12 @@ public class CommonThemeListAdapter extends RecyclerViewLoadMoreAdapter<NewsEnti
                         ((HeaderViewHolder) viewHolder).recommenderLl.addView(imageView);
                     }
                 }
+                ((HeaderViewHolder) viewHolder).recommenderLl.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        navigateToEditorList();
+                    }
+                });
                 break;
             case TYPE_ITEM:
                 final NewsEntity newsEntity = mData.get(position - 1);
@@ -117,6 +123,7 @@ public class CommonThemeListAdapter extends RecyclerViewLoadMoreAdapter<NewsEnti
         return mData.size() != 0 ? mData.size() + 1 : 0;
     }
 
+    public void navigateToEditorList(){}
 
     private static class HeaderViewHolder extends RecyclerView.ViewHolder {
         ImageView bannerIv;

@@ -57,7 +57,7 @@ public class NewsDetailActivity extends BaseAppCompatActivity implements ICommon
 
     @Override
     protected void initView() {
-        initToolbar();
+        setDisplayHomeAsUp(null);
         initComponent();
     }
 
@@ -106,12 +106,6 @@ public class NewsDetailActivity extends BaseAppCompatActivity implements ICommon
     @Override
     public void onFailure(NewsDetailEntity result) {
 
-    }
-
-    private void initToolbar() {
-        setDisplayHomeAsUp();
-        if (getSupportActionBar() != null)
-            getSupportActionBar().setTitle("");
     }
 
     private void initComponent(){

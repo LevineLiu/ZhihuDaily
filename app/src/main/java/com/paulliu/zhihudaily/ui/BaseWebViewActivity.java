@@ -38,6 +38,7 @@ public class BaseWebViewActivity extends BaseAppCompatActivity{
     protected void initView() {
         mBrowseView = (WebViewBrowseView) findViewById(R.id.wv_content);
         initAction();
+        setDisplayHomeAsUp(null);
         mBrowseView.loadUrl(mUrl);
     }
 
@@ -72,4 +73,5 @@ public class BaseWebViewActivity extends BaseAppCompatActivity{
     protected boolean isApplyStatusBarTranslucency() {
         return false;
     }
+
 }

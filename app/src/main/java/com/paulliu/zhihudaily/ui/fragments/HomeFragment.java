@@ -156,7 +156,7 @@ public class HomeFragment extends BaseFragment implements SwipeRefreshLayout.OnR
 
     private void initBanner(final ViewPager viewPager, final DotsIndexer dotsIndexer) {
         mSlidesCount = mAdapter.getTopStoriesCount();
-        HomeBannerPagerAdapter adapter = new HomeBannerPagerAdapter(mContext){
+        HomeBannerPagerAdapter adapter = new HomeBannerPagerAdapter(mContext) {
             @Override
             public void onImageClick(int id) {
                 Bundle bundle = new Bundle();
@@ -197,15 +197,17 @@ public class HomeFragment extends BaseFragment implements SwipeRefreshLayout.OnR
         viewPager.postDelayed(new Runnable() {
             @Override
             public void run() {
-                mSlideShowService.scheduleAtFixedRate(new Runnable() {
-                    @Override
-                    public void run() {
-                        if (mSlidesCount != 0) {
-                            mCurrentSlidePosition = (mCurrentSlidePosition + 1) % mSlidesCount;
-                            handler.obtainMessage().sendToTarget();
+                if (!mSlideShowService.isShutdown()) {
+                    mSlideShowService.scheduleAtFixedRate(new Runnable() {
+                        @Override
+                        public void run() {
+                            if (mSlidesCount != 0) {
+                                mCurrentSlidePosition = (mCurrentSlidePosition + 1) % mSlidesCount;
+                                handler.obtainMessage().sendToTarget();
+                            }
                         }
-                    }
-                }, 0, SCHEDULED_FIXED_RATE, TimeUnit.SECONDS);
+                    }, 0, SCHEDULED_FIXED_RATE, TimeUnit.SECONDS);
+                }
             }
         }, SCHEDULED_FIXED_RATE * 1000);
     }
@@ -213,7 +215,7 @@ public class HomeFragment extends BaseFragment implements SwipeRefreshLayout.OnR
     /**
      * when clicking the toolbar, scroll to top
      */
-    public void scrollToTop(){
+    public void scrollToTop() {
         mRecyclerView.smoothScrollToPosition(0);
     }
 

@@ -1,8 +1,8 @@
 package com.paulliu.zhihudaily.ui.activities;
 
+import android.app.DatePickerDialog;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.view.View;
 import android.support.design.widget.NavigationView;
@@ -11,6 +11,8 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.CalendarView;
+import android.widget.DatePicker;
 
 import com.paulliu.zhihudaily.R;
 import com.paulliu.zhihudaily.ui.BaseAppCompatActivity;
@@ -55,8 +57,7 @@ public class MainActivity extends BaseAppCompatActivity
         mFab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                navigateTo(DatePickerActivity.class);
             }
         });
 
@@ -216,5 +217,6 @@ public class MainActivity extends BaseAppCompatActivity
         mDrawerLayout.closeDrawer(GravityCompat.START);
         return true;
     }
+
 
 }

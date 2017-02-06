@@ -3,13 +3,12 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:fitsSystemWindows="true">
+    android:layout_height="match_parent">
 
     <include layout="@layout/toolbar"/>
 
-    <com.paulliu.zhihudaily.widgets.WebViewBrowseView
-        android:id="@+id/wv_content"
+    <CalendarView
+        android:id="@+id/calendar_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
 

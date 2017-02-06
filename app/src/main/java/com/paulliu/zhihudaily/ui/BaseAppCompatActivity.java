@@ -141,9 +141,14 @@ public abstract class BaseAppCompatActivity extends AppCompatActivity implements
         //showToast(R.string.network_error);
     }
 
-    protected void setDisplayHomeAsUp(){
-        if(getSupportActionBar() != null)
+    protected void setDisplayHomeAsUp(String title){
+        if(getSupportActionBar() != null){
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            if(TextUtils.isEmpty(title))
+                getSupportActionBar().setTitle("");
+            else
+                getSupportActionBar().setTitle(title);
+        }
         if(mToolbar != null)
             mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
                 @Override
