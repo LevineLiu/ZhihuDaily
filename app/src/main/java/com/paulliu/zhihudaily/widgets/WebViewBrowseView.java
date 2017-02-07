@@ -147,14 +147,27 @@ public class WebViewBrowseView extends LinearLayout implements View.OnClickListe
         mWebView.loadData(url, "text/html; charset=UTF-8", "utf-8");
     }
 
-    public void loadHtmlWithBody(String body){
+    public void loadHtmlWithData(String body){
         mWebView.loadData(getHtmlData(body), "text/html; charset=UTF-8", "utf-8");
+    }
+
+    public void loadHtmlWithData(String css, String body){
+        mWebView.loadDataWithBaseURL(css, getHtmlDataWithCss(css, body), "text/html; charset=UTF-8", "utf-8", null);
     }
 
     private String getHtmlData(String bodyHTML) {
         String head = "<head>" +
                 "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0, user-scalable=no\"> " +
                 "<style>img{max-width: 100%; width:auto; height:auto;}</style>" +
+                "</head>";
+        return "<html>" + head + "<body>" + bodyHTML + "</body></html>";
+    }
+
+    private String getHtmlDataWithCss(String css, String bodyHTML) {
+        String head = "<head>" +
+                "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0, user-scalable=no\"> " +
+                "<style>img{max-width: 100%; width:auto; height:auto;}</style>" +
+                "<link href=" + css + " rel=stylesheet type=text/css/>"+
                 "</head>";
         return "<html>" + head + "<body>" + bodyHTML + "</body></html>";
     }

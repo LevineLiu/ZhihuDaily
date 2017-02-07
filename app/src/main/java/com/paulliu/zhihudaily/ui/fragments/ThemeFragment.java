@@ -51,7 +51,7 @@ public class ThemeFragment extends BaseFragment implements SwipeRefreshLayout.On
 
     @Override
     protected int getLayoutId() {
-        return R.layout.fragment_common_list;
+        return R.layout.common_list;
     }
 
     @Override

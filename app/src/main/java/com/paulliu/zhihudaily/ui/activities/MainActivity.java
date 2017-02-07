@@ -134,6 +134,7 @@ public class MainActivity extends BaseAppCompatActivity
                 if(mFragmentSwitcher.getFragment(FRAGMENT_HOME) == null)
                     mFragmentSwitcher.addFragment(FRAGMENT_HOME, new HomeFragment(), FragmentSwitcher.OPERATION_SHOW_HIDE);
                 mFragmentSwitcher.switchFragment(FRAGMENT_HOME);
+                mFab.setVisibility(View.VISIBLE);
                 break;
             case R.id.nav_recommend:
                 mCurrentFragmentPosition = FRAGMENT_RECOMMEND;
@@ -145,6 +146,7 @@ public class MainActivity extends BaseAppCompatActivity
                     mFragmentSwitcher.addFragment(FRAGMENT_RECOMMEND, fragment, FragmentSwitcher.OPERATION_SHOW_HIDE);
                 }
                 mFragmentSwitcher.switchFragment(FRAGMENT_RECOMMEND);
+                mFab.setVisibility(View.GONE);
                 break;
             case R.id.nav_company:
                 mCurrentFragmentPosition = FRAGMENT_COMPANY;
@@ -156,6 +158,7 @@ public class MainActivity extends BaseAppCompatActivity
                     mFragmentSwitcher.addFragment(FRAGMENT_COMPANY, fragment, FragmentSwitcher.OPERATION_SHOW_HIDE);
                 }
                 mFragmentSwitcher.switchFragment(FRAGMENT_COMPANY);
+                mFab.setVisibility(View.GONE);
                 break;
             case R.id.nav_internet_security:
                 mCurrentFragmentPosition = FRAGMENT_SECURITY;
@@ -167,6 +170,7 @@ public class MainActivity extends BaseAppCompatActivity
                     mFragmentSwitcher.addFragment(FRAGMENT_SECURITY, fragment, FragmentSwitcher.OPERATION_SHOW_HIDE);
                 }
                 mFragmentSwitcher.switchFragment(FRAGMENT_SECURITY);
+                mFab.setVisibility(View.GONE);
                 break;
             case R.id.nav_movie:
                 mCurrentFragmentPosition = FRAGMENT_MOVIE;
@@ -179,6 +183,7 @@ public class MainActivity extends BaseAppCompatActivity
                 }
 
                 mFragmentSwitcher.switchFragment(FRAGMENT_MOVIE);
+                mFab.setVisibility(View.GONE);
                 break;
             case R.id.nav_sports:
                 mCurrentFragmentPosition = FRAGMENT_SPORTS;
@@ -190,6 +195,7 @@ public class MainActivity extends BaseAppCompatActivity
                     mFragmentSwitcher.addFragment(FRAGMENT_SPORTS, fragment, FragmentSwitcher.OPERATION_SHOW_HIDE);
                 }
                 mFragmentSwitcher.switchFragment(FRAGMENT_SPORTS);
+                mFab.setVisibility(View.GONE);
                 break;
             case R.id.nav_comic:
                 mCurrentFragmentPosition = FRAGMENT_COMIC;
@@ -201,6 +207,7 @@ public class MainActivity extends BaseAppCompatActivity
                     mFragmentSwitcher.addFragment(FRAGMENT_COMIC, fragment, FragmentSwitcher.OPERATION_SHOW_HIDE);
                 }
                 mFragmentSwitcher.switchFragment(FRAGMENT_COMIC);
+                mFab.setVisibility(View.GONE);
                 break;
             case R.id.nav_game:
                 mCurrentFragmentPosition = FRAGMENT_GAME;
@@ -212,6 +219,7 @@ public class MainActivity extends BaseAppCompatActivity
                     mFragmentSwitcher.addFragment(FRAGMENT_GAME, fragment, FragmentSwitcher.OPERATION_SHOW_HIDE);
                 }
                 mFragmentSwitcher.switchFragment(FRAGMENT_GAME);
+                mFab.setVisibility(View.GONE);
                 break;
         }
         mDrawerLayout.closeDrawer(GravityCompat.START);

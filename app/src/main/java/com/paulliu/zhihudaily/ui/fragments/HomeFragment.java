@@ -57,7 +57,7 @@ public class HomeFragment extends BaseFragment implements SwipeRefreshLayout.OnR
 
     @Override
     protected int getLayoutId() {
-        return R.layout.fragment_common_list;
+        return R.layout.common_list;
     }
 
     @Override

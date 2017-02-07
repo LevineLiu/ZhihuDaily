@@ -32,11 +32,9 @@ import butterknife.ButterKnife;
 public class HomeNewsListAdapter extends RecyclerViewLoadMoreAdapter<DailyNews> {
     private List<NewsEntity> mNewsEntityList = new ArrayList<>();
     private List<TopNewsEntity> mTopNewsEntityList = new ArrayList<>();
-    private HomeBannerPagerAdapter mBannerPagerAdapter;
 
     public HomeNewsListAdapter(Context context, RecyclerView.LayoutManager layoutManager) {
         super(context, layoutManager);
-        mBannerPagerAdapter = new HomeBannerPagerAdapter(context);
     }
 
     @Override

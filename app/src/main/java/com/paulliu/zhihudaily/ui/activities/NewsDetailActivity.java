@@ -2,12 +2,10 @@ package com.paulliu.zhihudaily.ui.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.CollapsingToolbarLayout;
 import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.webkit.WebView;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -30,18 +28,24 @@ import butterknife.BindView;
  * @author LLW
  */
 
-public class NewsDetailActivity extends BaseAppCompatActivity implements ICommonView<NewsDetailEntity>{
+public class NewsDetailActivity extends BaseAppCompatActivity implements ICommonView<NewsDetailEntity> {
     public final static String NEWS_DETAIL_ID = "news_detail_id";
 
     private int mId;
     private String mShareUrl;
 
-    @BindView(R.id.iv_news_detail) ImageView mNewsDetailIv;
-    @BindView(R.id.wv_news_detail) WebViewBrowseView mNewsDetailWv;
-    @BindView(R.id.tv_copyright) TextView mCopyrightTv;
-    @BindView(R.id.tv_news_detail_title) TextView mNewsDetailTitleTv;
-    @BindView(R.id.rl_news_detail_banner) RelativeLayout mBannerRl;
-    @Inject NewsDetailPresenter mPresenter;
+    @BindView(R.id.iv_news_detail)
+    ImageView mNewsDetailIv;
+    @BindView(R.id.wv_news_detail)
+    WebViewBrowseView mNewsDetailWv;
+    @BindView(R.id.tv_copyright)
+    TextView mCopyrightTv;
+    @BindView(R.id.tv_news_detail_title)
+    TextView mNewsDetailTitleTv;
+    @BindView(R.id.rl_news_detail_banner)
+    RelativeLayout mBannerRl;
+    @Inject
+    NewsDetailPresenter mPresenter;
 
     @Override
     protected void getBundleExtra(Bundle extra) {
@@ -75,7 +79,7 @@ public class NewsDetailActivity extends BaseAppCompatActivity implements ICommon
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()){
+        switch (item.getItemId()) {
             case R.id.action_share:
                 Intent intent = new Intent(Intent.ACTION_SEND);
                 intent.putExtra(Intent.EXTRA_TEXT, mShareUrl);
@@ -90,16 +94,21 @@ public class NewsDetailActivity extends BaseAppCompatActivity implements ICommon
 
     @Override
     public void onSuccess(NewsDetailEntity result) {
-        if(result != null){
+        if (result != null) {
             mShareUrl = result.getShare_url();
-            if(!TextUtils.isEmpty(result.getImage())){
+            if (!TextUtils.isEmpty(result.getImage())) {
                 Picasso.with(this).load(result.getImage()).into(mNewsDetailIv);
                 mCopyrightTv.setText(result.getImage_source());
                 mNewsDetailTitleTv.setText(result.getTitle());
-            }
-            else
+            } else
                 mBannerRl.setVisibility(View.GONE);
-            mNewsDetailWv.loadHtmlWithBody(result.getBody());
+            if (result.getBody() != null) {
+                if (result.getCss() != null)
+                    mNewsDetailWv.loadHtmlWithData(result.getCss().get(0), result.getBody());
+                else
+                    mNewsDetailWv.loadHtmlWithData(result.getBody());
+            }else
+                mNewsDetailWv.loadUrl(result.getShare_url());
         }
     }
 
@@ -108,7 +117,7 @@ public class NewsDetailActivity extends BaseAppCompatActivity implements ICommon
 
     }
 
-    private void initComponent(){
+    private void initComponent() {
         getActivityComponent().inject(this);
         mPresenter.attachView(this);
         mPresenter.getNewsDetail(mId);
