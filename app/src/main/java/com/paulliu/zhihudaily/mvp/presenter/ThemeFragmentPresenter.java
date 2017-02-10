@@ -1,7 +1,6 @@
 package com.paulliu.zhihudaily.mvp.presenter;
 
 import com.paulliu.zhihudaily.entities.ThemeEntity;
-import com.paulliu.zhihudaily.mvp.CommonPresenter;
 import com.paulliu.zhihudaily.mvp.ICommonListView;
 import com.paulliu.zhihudaily.mvp.interactor.ThemeFragmentInteractor;
 

@@ -62,7 +62,33 @@
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
                 app:popupTheme="@style/AppTheme.PopupOverlay"
-                app:layout_collapseMode="pin"/>
+                app:layout_collapseMode="pin">
+
+                <TextView
+                    android:id="@+id/tv_news_like"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:layout_gravity="right"
+                    android:layout_marginRight="@dimen/activity_vertical_margin"
+                    android:drawableLeft="@drawable/ic_thumb_up"/>
+
+                <TextView
+                    android:id="@+id/tv_news_comment"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:layout_gravity="right"
+                    android:layout_marginRight="@dimen/activity_vertical_margin"
+                    android:drawableLeft="@drawable/ic_comment"/>
+                <TextView
+                    android:id="@+id/tv_news_share"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right"
+                    android:layout_marginRight="25dp"
+                    android:drawableLeft="@drawable/ic_menu_share"/>
+            </android.support.v7.widget.Toolbar>
         </android.support.design.widget.CollapsingToolbarLayout>
 
     </android.support.design.widget.AppBarLayout>
@@ -76,7 +102,6 @@
             android:id="@+id/wv_news_detail"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:scrollbars="none"
             app:progress_visible="false"/>
     </android.support.v4.widget.NestedScrollView>
 </android.support.design.widget.CoordinatorLayout>

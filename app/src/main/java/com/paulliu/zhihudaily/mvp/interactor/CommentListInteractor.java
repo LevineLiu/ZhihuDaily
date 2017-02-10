@@ -1,8 +1,8 @@
 package com.paulliu.zhihudaily.mvp.interactor;
 
 import com.paulliu.zhihudaily.api.ZhiHuDailyApi;
-import com.paulliu.zhihudaily.entities.NewsDetailEntity;
-import com.paulliu.zhihudaily.entities.NewsExtraEntity;
+import com.paulliu.zhihudaily.entities.CommentEntity;
+import com.paulliu.zhihudaily.entities.CommentListEntity;
 
 import javax.inject.Inject;
 
@@ -11,27 +11,27 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
 /**
- * Created on 2017/1/23
+ * Created on 2017/2/10
  *
  * @author LLW
  */
 
-public class NewsDetailInteractor{
+public class CommentListInteractor {
     private ZhiHuDailyApi mApi;
 
     @Inject
-    public NewsDetailInteractor(ZhiHuDailyApi api){
+    public CommentListInteractor(ZhiHuDailyApi api){
         mApi = api;
     }
 
-    public Observable<NewsDetailEntity> createNewsDetailObservable(int id) {
-        return mApi.getNewsDetail(id)
+    public Observable<CommentListEntity> createLongCommentObservable(int id){
+        return mApi.getLongComments(id)
                    .subscribeOn(Schedulers.io())
                    .observeOn(AndroidSchedulers.mainThread());
     }
 
-    public Observable<NewsExtraEntity> createNewsExtraObservable(int id) {
-        return mApi.getNewsExtra(id)
+    public Observable<CommentListEntity> createShortCommentObservable(int id){
+        return mApi.getShortComments(id)
                    .subscribeOn(Schedulers.io())
                    .observeOn(AndroidSchedulers.mainThread());
     }

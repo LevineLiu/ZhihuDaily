@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebChromeClient;
+import android.webkit.WebResourceRequest;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
@@ -118,20 +119,19 @@ public class WebViewBrowseView extends LinearLayout implements View.OnClickListe
             }
         });
 
-        mWebView.setWebViewClient(new WebViewClient() {
-
-            @Override
-            public void onPageFinished(WebView view, String url) {
-                super.onPageFinished(view, url);
-                mUrl = url;
-            }
-
-            @Override
-            public void onReceivedError(WebView view, int errorCode, String description, String failingUrl) {
-                super.onReceivedError(view, errorCode, description, failingUrl);
-            }
-        });
-
+//        mWebView.setWebViewClient(new WebViewClient() {
+//
+//            @Override
+//            public void onPageFinished(WebView view, String url) {
+//                super.onPageFinished(view, url);
+//                mUrl = url;
+//            }
+//
+//            @Override
+//            public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
+//                return true;
+//            }
+//        });
         setOrientation(VERTICAL);
     }
 
@@ -152,7 +152,7 @@ public class WebViewBrowseView extends LinearLayout implements View.OnClickListe
     }
 
     public void loadHtmlWithData(String css, String body){
-        mWebView.loadDataWithBaseURL(css, getHtmlDataWithCss(css, body), "text/html; charset=UTF-8", "utf-8", null);
+        mWebView.loadData(getHtmlDataWithCss(css, body), "text/html; charset=UTF-8", "utf-8");
     }
 
     private String getHtmlData(String bodyHTML) {
@@ -174,6 +174,10 @@ public class WebViewBrowseView extends LinearLayout implements View.OnClickListe
 
     public boolean canGoBack() {
         return mWebView.canGoBack();
+    }
+
+    public void setWebViewClient(WebViewClient webViewClient){
+        mWebView.setWebViewClient(webViewClient);
     }
 
     public void goBack() {

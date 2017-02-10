@@ -1,12 +1,15 @@
 package com.paulliu.zhihudaily.entities;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 /**
  * Created on 2017/2/3
  *
  * @author LLW
  */
 
-public class NewsExtraEntity {
+public class NewsExtraEntity implements Parcelable {
 
     /**
      * long_comments : 1
@@ -51,4 +54,39 @@ public class NewsExtraEntity {
     public void setComments(int comments) {
         this.comments = comments;
     }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(this.long_comments);
+        dest.writeInt(this.popularity);
+        dest.writeInt(this.short_comments);
+        dest.writeInt(this.comments);
+    }
+
+    public NewsExtraEntity() {
+    }
+
+    protected NewsExtraEntity(Parcel in) {
+        this.long_comments = in.readInt();
+        this.popularity = in.readInt();
+        this.short_comments = in.readInt();
+        this.comments = in.readInt();
+    }
+
+    public static final Parcelable.Creator<NewsExtraEntity> CREATOR = new Parcelable.Creator<NewsExtraEntity>() {
+        @Override
+        public NewsExtraEntity createFromParcel(Parcel source) {
+            return new NewsExtraEntity(source);
+        }
+
+        @Override
+        public NewsExtraEntity[] newArray(int size) {
+            return new NewsExtraEntity[size];
+        }
+    };
 }

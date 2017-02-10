@@ -50,7 +50,7 @@ public interface ZhiHuDailyApi {
     Observable<ThemeEntity> getBeforeTheme(@Path("themeId") int themeId, @Path("storyId") int storyId);
 
     //新闻额外信息（评论数、点赞数等）
-    @GET("story-extra/id")
+    @GET("story-extra/{id}")
     Observable<NewsExtraEntity> getNewsExtra(@Path("id") int id);
 
     //新闻长评论

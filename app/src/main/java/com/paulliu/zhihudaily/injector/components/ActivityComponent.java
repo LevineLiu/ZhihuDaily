@@ -3,6 +3,7 @@ package com.paulliu.zhihudaily.injector.components;
 import com.paulliu.zhihudaily.injector.ActivityScope;
 import com.paulliu.zhihudaily.injector.modules.ActivityModule;
 import com.paulliu.zhihudaily.ui.BaseAppCompatActivity;
+import com.paulliu.zhihudaily.ui.activities.CommentListActivity;
 import com.paulliu.zhihudaily.ui.activities.DailyNewsActivity;
 import com.paulliu.zhihudaily.ui.activities.EditorListActivity;
 import com.paulliu.zhihudaily.ui.activities.NewsDetailActivity;
@@ -24,6 +25,7 @@ public interface ActivityComponent {
     void inject(SplashActivity activity);
     void inject(NewsDetailActivity activity);
     void inject(DailyNewsActivity activity);
+    void inject(CommentListActivity activity);
     void inject(HomeFragment fragment);
     void inject(ThemeFragment fragment);
     void inject(EditorListActivity fragment);

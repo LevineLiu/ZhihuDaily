@@ -1,4 +1,6 @@
-package com.paulliu.zhihudaily.mvp;
+package com.paulliu.zhihudaily.mvp.presenter;
+
+import com.paulliu.zhihudaily.mvp.IView;
 
 import io.reactivex.disposables.Disposable;
 

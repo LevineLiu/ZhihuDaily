@@ -26,7 +26,7 @@ import butterknife.ButterKnife;
  * @author LLW
  */
 
-public class NewsListAdapter extends RecyclerView.Adapter<NewsListAdapter.ItemViewHolder>{
+public class NewsListAdapter extends RecyclerView.Adapter{
     private Context mContext;
     private List<NewsEntity> mData;
     private OnListItemClickListener mOnListItemClickListener;
@@ -50,7 +50,7 @@ public class NewsListAdapter extends RecyclerView.Adapter<NewsListAdapter.ItemVi
     }
 
     @Override
-    public void onBindViewHolder(ItemViewHolder holder, int position) {
+    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         final NewsEntity newsEntity = mData.get(position);
         if(newsEntity.getImages() != null && newsEntity.getImages().size() != 0)
             Picasso.with(mContext)
@@ -58,9 +58,9 @@ public class NewsListAdapter extends RecyclerView.Adapter<NewsListAdapter.ItemVi
                     .placeholder(R.drawable.progress_animation)
                     .resizeDimen(R.dimen.home_news_image_width, R.dimen.home_news_image_height)
                     .config(Bitmap.Config.RGB_565)
-                    .into(holder.imageView);
-        holder.titleTv.setText(newsEntity.getTitle());
-        holder.cardView.setOnClickListener(new View.OnClickListener() {
+                    .into(((ItemViewHolder)holder).imageView);
+        ((ItemViewHolder)holder).titleTv.setText(newsEntity.getTitle());
+        ((ItemViewHolder)holder).cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if(mOnListItemClickListener != null)
@@ -74,7 +74,7 @@ public class NewsListAdapter extends RecyclerView.Adapter<NewsListAdapter.ItemVi
         return mData != null ? mData.size() : 0;
     }
 
-    protected static class ItemViewHolder extends RecyclerView.ViewHolder {
+    private static class ItemViewHolder extends RecyclerView.ViewHolder {
         CardView cardView;
         TextView titleTv;
         ImageView imageView;

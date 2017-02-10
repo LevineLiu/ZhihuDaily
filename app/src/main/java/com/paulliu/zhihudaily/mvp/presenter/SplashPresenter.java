@@ -1,7 +1,8 @@
 package com.paulliu.zhihudaily.mvp.presenter;
 
+import android.content.Context;
+
 import com.paulliu.zhihudaily.entities.SplashImage;
-import com.paulliu.zhihudaily.mvp.CommonPresenter;
 import com.paulliu.zhihudaily.mvp.ICommonView;
 import com.paulliu.zhihudaily.mvp.interactor.SplashInteractor;
 
@@ -9,7 +10,6 @@ import javax.inject.Inject;
 
 import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
-import io.reactivex.functions.Consumer;
 
 /**
  * Created on 2017/1/11
@@ -19,14 +19,17 @@ import io.reactivex.functions.Consumer;
 
 public class SplashPresenter extends CommonPresenter<SplashImage> {
     private SplashInteractor mInteractor;
+    private Context mContext;
 
     @Inject
-    public SplashPresenter(SplashInteractor interactor){
+    public SplashPresenter(Context context, SplashInteractor interactor){
         mInteractor = interactor;
+        mContext = context;
     }
 
     @Override
     public void initialize() {
+        //该api已无效
         mInteractor.createObservable()
                 .subscribe(new Observer<SplashImage>() {
                     @Override
@@ -50,5 +53,9 @@ public class SplashPresenter extends CommonPresenter<SplashImage> {
 
                     }
                 });
+    }
+
+    public int getBackgroundResId(){
+        return mInteractor.getSplashBackgroundResId();
     }
 }

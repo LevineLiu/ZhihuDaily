@@ -116,6 +116,13 @@ public abstract class RecyclerViewLoadMoreAdapter<T> extends RecyclerView.Adapte
         }
     }
 
+    public void removeAll(List<T> data){
+        if(mData != null){
+            mData.removeAll(data);
+            notifyDataSetChanged();
+        }
+    }
+
     public List<T> getData(){
         return mData;
     }

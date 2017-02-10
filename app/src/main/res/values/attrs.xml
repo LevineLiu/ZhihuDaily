@@ -2,5 +2,6 @@
 <resources>
     <declare-styleable name="WebViewBrowseView">
         <attr name="progress_visible" format="boolean"/>
+        <attr name="webview_client_enabled" format="boolean"/>
     </declare-styleable>
 </resources>

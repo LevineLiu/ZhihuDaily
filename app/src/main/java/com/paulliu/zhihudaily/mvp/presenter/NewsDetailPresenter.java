@@ -1,9 +1,9 @@
 package com.paulliu.zhihudaily.mvp.presenter;
 
 import com.paulliu.zhihudaily.entities.NewsDetailEntity;
-import com.paulliu.zhihudaily.mvp.CommonPresenter;
-import com.paulliu.zhihudaily.mvp.ICommonView;
+import com.paulliu.zhihudaily.entities.NewsExtraEntity;
 import com.paulliu.zhihudaily.mvp.interactor.NewsDetailInteractor;
+import com.paulliu.zhihudaily.mvp.view.INewsDetailView;
 
 import javax.inject.Inject;
 
@@ -40,13 +40,41 @@ public class NewsDetailPresenter extends CommonPresenter<NewsDetailEntity>{
                     @Override
                     public void onNext(NewsDetailEntity newsDetailEntity) {
                         if(mView != null)
-                            ((ICommonView<NewsDetailEntity>) mView).onSuccess(newsDetailEntity);
+                            ((INewsDetailView) mView).getNewsDetailSuccess(newsDetailEntity);
                     }
 
                     @Override
                     public void onError(Throwable e) {
                         if(mView != null)
-                            ((ICommonView<NewsDetailEntity>) mView).onFailure(null);
+                            ((INewsDetailView) mView).getNewsDetailFailure();
+
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
+    }
+
+    public void getNewsExtra(int id){
+        mInteractor.createNewsExtraObservable(id)
+                .subscribe(new Observer<NewsExtraEntity>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+                        mDisposable = d;
+                    }
+
+                    @Override
+                    public void onNext(NewsExtraEntity newsExtraEntity) {
+                        if(mView != null)
+                            ((INewsDetailView) mView).getNewsExtraSuccess(newsExtraEntity);
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        if(mView != null)
+                            ((INewsDetailView) mView).getNewsExtraFailure();
 
                     }
 

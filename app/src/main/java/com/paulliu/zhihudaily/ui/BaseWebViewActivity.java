@@ -2,6 +2,7 @@ package com.paulliu.zhihudaily.ui;
 
 import android.os.Bundle;
 import android.view.KeyEvent;
+import android.webkit.WebViewClient;
 
 import com.paulliu.zhihudaily.R;
 import com.paulliu.zhihudaily.widgets.WebViewBrowseView;
@@ -39,6 +40,7 @@ public class BaseWebViewActivity extends BaseAppCompatActivity{
         mBrowseView = (WebViewBrowseView) findViewById(R.id.wv_content);
         initAction();
         setDisplayHomeAsUp(null);
+        mBrowseView.setWebViewClient(new WebViewClient());
         mBrowseView.loadUrl(mUrl);
     }
 

@@ -1,5 +1,9 @@
 package com.paulliu.zhihudaily.ui.activities;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
+import android.animation.AnimatorSet;
+import android.animation.ObjectAnimator;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -55,8 +59,8 @@ public class SplashActivity extends BaseAppCompatActivity implements ICommonView
     @Override
     protected void initView() {
         getActivityComponent().inject(this);
-        initPresenter();
-        ((Handler)getHandlerInstance()).sendEmptyMessageDelayed(HANDLER_WHAT, SPLASH_TIME);
+        loadAnimation();
+        //((Handler)getHandlerInstance()).sendEmptyMessageDelayed(HANDLER_WHAT, SPLASH_TIME);
     }
 
     @Override
@@ -96,5 +100,22 @@ public class SplashActivity extends BaseAppCompatActivity implements ICommonView
                 mPresenter.initialize();
             }
         }, Constants.DELAY_TIME);
+    }
+
+    private void loadAnimation(){
+        mImageView.setBackgroundResource(mPresenter.getBackgroundResId());
+        ObjectAnimator animator1 = ObjectAnimator.ofFloat(mImageView, "scaleX", 1f, 1.2f);
+        ObjectAnimator animator2 = ObjectAnimator.ofFloat(mImageView, "scaleY", 1f, 1.2f);
+        AnimatorSet animatorSet = new AnimatorSet();
+        animatorSet.setDuration(SPLASH_TIME);
+        animatorSet.play(animator1).with(animator2);
+        animatorSet.addListener(new AnimatorListenerAdapter() {
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                navigateTo(MainActivity.class);
+                finish();
+            }
+        });
+        animatorSet.start();
     }
 }
