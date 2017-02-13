@@ -1,10 +1,10 @@
 # ZhihuDaily - 个人的知乎日报客户端
 采用RxJava2 + Retrofit2 + Dagger + mvp 架构开发的非官方简化版知乎日报。<br/>
 # ScreenShot
-![](https://github.com/LevineLiu/ZhihuDaily/tree/master/screenshot/Screenshot_20170213-142308.png)
-![](https://github.com/LevineLiu/ZhihuDaily/tree/master/screenshot/Screenshot_20170213-142404.png)
-![](https://github.com/LevineLiu/ZhihuDaily/tree/master/screenshot/Screenshot_20170213-142421.png)
-![](https://github.com/LevineLiu/ZhihuDaily/tree/master/screenshot/Screenshot_20170213-142507.png)
+![](/screenshot/Screenshot_20170213-142308.png)
+![](/screenshot/Screenshot_20170213-142404.png)
+![](/screenshot/Screenshot_20170213-142421.png)
+![](/screenshot/Screenshot_20170213-142507.png)
 # API 
 来自 [ZhihuDailyPurify](https://github.com/izzyleung/ZhihuDailyPurify/wiki/%E7%9F%A5%E4%B9%8E%E6%97%A5%E6%8A%A5-API-%E5%88%86%E6%9E%90) 
 # Library
