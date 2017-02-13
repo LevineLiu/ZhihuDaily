@@ -5,7 +5,7 @@ import android.view.KeyEvent;
 import android.webkit.WebViewClient;
 
 import com.paulliu.zhihudaily.R;
-import com.paulliu.zhihudaily.widgets.WebViewBrowseView;
+import com.paulliu.zhihudaily.widget.WebViewBrowseView;
 
 
 /**

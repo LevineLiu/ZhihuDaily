@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.paulliu.zhihudaily.ui.activities.NewsDetailActivity"
+    tools:context="com.paulliu.zhihudaily.ui.activity.NewsDetailActivity"
     tools:ignore="contentDescription">
 
     <android.support.design.widget.AppBarLayout
@@ -98,7 +98,7 @@
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-        <com.paulliu.zhihudaily.widgets.WebViewBrowseView
+        <com.paulliu.zhihudaily.widget.WebViewBrowseView
             android:id="@+id/wv_news_detail"
             android:layout_width="match_parent"
             android:layout_height="match_parent"

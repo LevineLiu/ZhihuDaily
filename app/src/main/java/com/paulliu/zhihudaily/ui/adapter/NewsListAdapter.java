@@ -11,9 +11,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.paulliu.zhihudaily.R;
-import com.paulliu.zhihudaily.entities.NewsEntity;
+import com.paulliu.zhihudaily.entity.NewsEntity;
 import com.paulliu.zhihudaily.listener.OnListItemClickListener;
-import com.paulliu.zhihudaily.ui.adapter.base.RecyclerViewLoadMoreAdapter;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;

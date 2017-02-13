@@ -9,9 +9,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.paulliu.zhihudaily.R;
-import com.paulliu.zhihudaily.entities.CommentEntity;
+import com.paulliu.zhihudaily.entity.CommentEntity;
 import com.paulliu.zhihudaily.ui.adapter.base.RecyclerViewLoadMoreAdapter;
-import com.paulliu.zhihudaily.widgets.CircleTransform;
 import com.squareup.picasso.Picasso;
 
 import butterknife.ButterKnife;

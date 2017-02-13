@@ -13,7 +13,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <activity android:name=".ui.activities.SplashActivity">
+        <activity android:name=".ui.activity.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -21,7 +21,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ui.activities.MainActivity"
+            android:name=".ui.activity.MainActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar"
             android:configChanges="keyboardHidden|screenSize|orientation"
@@ -29,14 +29,14 @@
         </activity>
 
         <activity
-            android:name=".ui.activities.NewsDetailActivity"
+            android:name=".ui.activity.NewsDetailActivity"
             android:label="@string/app_name"
             android:configChanges="keyboardHidden|screenSize|orientation"
             android:screenOrientation="portrait">
         </activity>
 
         <activity
-            android:name=".ui.activities.EditorListActivity"
+            android:name=".ui.activity.EditorListActivity"
             android:configChanges="keyboardHidden|screenSize|orientation"
             android:screenOrientation="portrait"/>
 
@@ -46,17 +46,17 @@
             android:screenOrientation="portrait"/>
 
         <activity
-            android:name=".ui.activities.DatePickerActivity"
+            android:name=".ui.activity.DatePickerActivity"
             android:configChanges="keyboardHidden|screenSize|orientation"
             android:screenOrientation="portrait"/>
 
         <activity
-            android:name=".ui.activities.DailyNewsActivity"
+            android:name=".ui.activity.DailyNewsActivity"
             android:configChanges="keyboardHidden|screenSize|orientation"
             android:screenOrientation="portrait"/>
 
         <activity
-            android:name=".ui.activities.CommentListActivity"
+            android:name=".ui.activity.CommentListActivity"
             android:configChanges="keyboardHidden|screenSize|orientation"
             android:screenOrientation="portrait"/>
 

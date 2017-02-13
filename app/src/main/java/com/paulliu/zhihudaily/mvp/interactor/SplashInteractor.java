@@ -1,10 +1,8 @@
 package com.paulliu.zhihudaily.mvp.interactor;
 
-import android.content.Context;
-
 import com.paulliu.zhihudaily.R;
 import com.paulliu.zhihudaily.api.ZhiHuDailyApi;
-import com.paulliu.zhihudaily.entities.SplashImage;
+import com.paulliu.zhihudaily.entity.SplashImage;
 import com.paulliu.zhihudaily.mvp.ICommonInteractor;
 
 import java.util.Calendar;

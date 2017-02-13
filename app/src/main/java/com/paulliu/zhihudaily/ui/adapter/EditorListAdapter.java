@@ -10,8 +10,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.paulliu.zhihudaily.R;
-import com.paulliu.zhihudaily.entities.EditorEntity;
-import com.paulliu.zhihudaily.widgets.CircleTransform;
+import com.paulliu.zhihudaily.entity.EditorEntity;
+import com.paulliu.zhihudaily.widget.CircleTransform;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;

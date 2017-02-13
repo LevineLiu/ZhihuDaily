@@ -1,6 +1,6 @@
 package com.paulliu.zhihudaily.mvp.view;
 
-import com.paulliu.zhihudaily.entities.CommentListEntity;
+import com.paulliu.zhihudaily.entity.CommentListEntity;
 import com.paulliu.zhihudaily.mvp.IView;
 
 /**

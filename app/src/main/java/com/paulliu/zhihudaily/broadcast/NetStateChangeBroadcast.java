@@ -6,7 +6,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 
 import com.paulliu.zhihudaily.listener.NetStateListener;
-import com.paulliu.zhihudaily.utils.NetUtils;
+import com.paulliu.zhihudaily.util.NetUtils;
 
 import java.util.ArrayList;
 import java.util.List;

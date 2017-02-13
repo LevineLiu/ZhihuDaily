@@ -2,7 +2,7 @@ package com.paulliu.zhihudaily.mvp.presenter;
 
 import android.content.Context;
 
-import com.paulliu.zhihudaily.entities.SplashImage;
+import com.paulliu.zhihudaily.entity.SplashImage;
 import com.paulliu.zhihudaily.mvp.ICommonView;
 import com.paulliu.zhihudaily.mvp.interactor.SplashInteractor;
 

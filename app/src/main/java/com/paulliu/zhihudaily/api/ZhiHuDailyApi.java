@@ -1,12 +1,12 @@
 package com.paulliu.zhihudaily.api;
 
-import com.paulliu.zhihudaily.entities.CommentListEntity;
-import com.paulliu.zhihudaily.entities.DailyNews;
-import com.paulliu.zhihudaily.entities.NewVersion;
-import com.paulliu.zhihudaily.entities.NewsDetailEntity;
-import com.paulliu.zhihudaily.entities.NewsExtraEntity;
-import com.paulliu.zhihudaily.entities.SplashImage;
-import com.paulliu.zhihudaily.entities.ThemeEntity;
+import com.paulliu.zhihudaily.entity.CommentListEntity;
+import com.paulliu.zhihudaily.entity.DailyNews;
+import com.paulliu.zhihudaily.entity.NewVersion;
+import com.paulliu.zhihudaily.entity.NewsDetailEntity;
+import com.paulliu.zhihudaily.entity.NewsExtraEntity;
+import com.paulliu.zhihudaily.entity.SplashImage;
+import com.paulliu.zhihudaily.entity.ThemeEntity;
 
 
 import io.reactivex.Observable;

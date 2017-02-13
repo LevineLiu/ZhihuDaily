@@ -1,6 +1,6 @@
 package com.paulliu.zhihudaily.mvp.presenter;
 
-import com.paulliu.zhihudaily.entities.DailyNews;
+import com.paulliu.zhihudaily.entity.DailyNews;
 import com.paulliu.zhihudaily.mvp.ICommonListView;
 import com.paulliu.zhihudaily.mvp.interactor.HomeFragmentInteractor;
 

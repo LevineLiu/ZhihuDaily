@@ -9,7 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.paulliu.zhihudaily.R;
-import com.paulliu.zhihudaily.entities.TopNewsEntity;
+import com.paulliu.zhihudaily.entity.TopNewsEntity;
 import com.paulliu.zhihudaily.ui.adapter.base.BasePagerAdapter;
 import com.squareup.picasso.Picasso;
 

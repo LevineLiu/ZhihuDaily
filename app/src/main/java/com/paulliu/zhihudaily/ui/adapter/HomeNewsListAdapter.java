@@ -11,11 +11,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.paulliu.zhihudaily.R;
-import com.paulliu.zhihudaily.entities.DailyNews;
-import com.paulliu.zhihudaily.entities.NewsEntity;
-import com.paulliu.zhihudaily.entities.TopNewsEntity;
+import com.paulliu.zhihudaily.entity.DailyNews;
+import com.paulliu.zhihudaily.entity.NewsEntity;
+import com.paulliu.zhihudaily.entity.TopNewsEntity;
 import com.paulliu.zhihudaily.ui.adapter.base.RecyclerViewLoadMoreAdapter;
-import com.paulliu.zhihudaily.widgets.DotsIndexer;
+import com.paulliu.zhihudaily.widget.DotsIndexer;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;

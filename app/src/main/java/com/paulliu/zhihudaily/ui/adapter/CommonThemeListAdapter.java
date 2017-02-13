@@ -13,11 +13,11 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.paulliu.zhihudaily.R;
-import com.paulliu.zhihudaily.entities.EditorEntity;
-import com.paulliu.zhihudaily.entities.NewsEntity;
-import com.paulliu.zhihudaily.entities.ThemeEntity;
+import com.paulliu.zhihudaily.entity.EditorEntity;
+import com.paulliu.zhihudaily.entity.NewsEntity;
+import com.paulliu.zhihudaily.entity.ThemeEntity;
 import com.paulliu.zhihudaily.ui.adapter.base.RecyclerViewLoadMoreAdapter;
-import com.paulliu.zhihudaily.widgets.CircleTransform;
+import com.paulliu.zhihudaily.widget.CircleTransform;
 import com.squareup.picasso.Picasso;
 
 import butterknife.ButterKnife;

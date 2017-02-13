@@ -1,7 +1,7 @@
 package com.paulliu.zhihudaily.mvp.presenter;
 
-import com.paulliu.zhihudaily.entities.NewsDetailEntity;
-import com.paulliu.zhihudaily.entities.NewsExtraEntity;
+import com.paulliu.zhihudaily.entity.NewsDetailEntity;
+import com.paulliu.zhihudaily.entity.NewsExtraEntity;
 import com.paulliu.zhihudaily.mvp.interactor.NewsDetailInteractor;
 import com.paulliu.zhihudaily.mvp.view.INewsDetailView;
 

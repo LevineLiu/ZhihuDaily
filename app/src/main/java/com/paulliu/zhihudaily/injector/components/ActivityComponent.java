@@ -3,13 +3,13 @@ package com.paulliu.zhihudaily.injector.components;
 import com.paulliu.zhihudaily.injector.ActivityScope;
 import com.paulliu.zhihudaily.injector.modules.ActivityModule;
 import com.paulliu.zhihudaily.ui.BaseAppCompatActivity;
-import com.paulliu.zhihudaily.ui.activities.CommentListActivity;
-import com.paulliu.zhihudaily.ui.activities.DailyNewsActivity;
-import com.paulliu.zhihudaily.ui.activities.EditorListActivity;
-import com.paulliu.zhihudaily.ui.activities.NewsDetailActivity;
-import com.paulliu.zhihudaily.ui.activities.SplashActivity;
-import com.paulliu.zhihudaily.ui.fragments.HomeFragment;
-import com.paulliu.zhihudaily.ui.fragments.ThemeFragment;
+import com.paulliu.zhihudaily.ui.activity.CommentListActivity;
+import com.paulliu.zhihudaily.ui.activity.DailyNewsActivity;
+import com.paulliu.zhihudaily.ui.activity.EditorListActivity;
+import com.paulliu.zhihudaily.ui.activity.NewsDetailActivity;
+import com.paulliu.zhihudaily.ui.activity.SplashActivity;
+import com.paulliu.zhihudaily.ui.fragment.HomeFragment;
+import com.paulliu.zhihudaily.ui.fragment.ThemeFragment;
 
 import dagger.Component;
 

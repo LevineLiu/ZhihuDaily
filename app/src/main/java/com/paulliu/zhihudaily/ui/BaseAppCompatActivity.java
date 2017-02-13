@@ -25,12 +25,11 @@ import com.paulliu.zhihudaily.injector.components.ActivityComponent;
 import com.paulliu.zhihudaily.injector.components.DaggerActivityComponent;
 import com.paulliu.zhihudaily.injector.modules.ActivityModule;
 import com.paulliu.zhihudaily.listener.NetStateListener;
-import com.paulliu.zhihudaily.utils.AppManager;
-import com.paulliu.zhihudaily.utils.GlobalProgressDialog;
+import com.paulliu.zhihudaily.util.AppManager;
+import com.paulliu.zhihudaily.util.GlobalProgressDialog;
 
 import java.lang.ref.WeakReference;
 
-import butterknife.BindView;
 import butterknife.ButterKnife;
 
 

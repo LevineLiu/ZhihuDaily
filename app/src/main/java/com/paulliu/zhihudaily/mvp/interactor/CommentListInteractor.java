@@ -1,8 +1,7 @@
 package com.paulliu.zhihudaily.mvp.interactor;
 
 import com.paulliu.zhihudaily.api.ZhiHuDailyApi;
-import com.paulliu.zhihudaily.entities.CommentEntity;
-import com.paulliu.zhihudaily.entities.CommentListEntity;
+import com.paulliu.zhihudaily.entity.CommentListEntity;
 
 import javax.inject.Inject;
 

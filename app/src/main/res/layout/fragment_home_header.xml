@@ -8,7 +8,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
 
-    <com.paulliu.zhihudaily.widgets.DotsIndexer
+    <com.paulliu.zhihudaily.widget.DotsIndexer
         android:id="@+id/dots_indexer_home_header"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

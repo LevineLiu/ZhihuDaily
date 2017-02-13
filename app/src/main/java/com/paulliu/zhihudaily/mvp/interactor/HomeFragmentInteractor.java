@@ -1,7 +1,7 @@
 package com.paulliu.zhihudaily.mvp.interactor;
 
 import com.paulliu.zhihudaily.api.ZhiHuDailyApi;
-import com.paulliu.zhihudaily.entities.DailyNews;
+import com.paulliu.zhihudaily.entity.DailyNews;
 
 import javax.inject.Inject;
 
