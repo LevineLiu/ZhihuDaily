@@ -81,6 +81,8 @@ public class MainActivity extends BaseAppCompatActivity
                 }
             }
         });
+        if(getSupportActionBar() != null)
+            getSupportActionBar().setTitle(getString(R.string.ic_menu_home));
     }
 
     @Override
@@ -219,6 +221,7 @@ public class MainActivity extends BaseAppCompatActivity
                 mFab.setVisibility(View.GONE);
                 break;
         }
+        mToolbar.setTitle(item.getTitle());
         mDrawerLayout.closeDrawer(GravityCompat.START);
         return true;
     }
