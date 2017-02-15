@@ -78,8 +78,12 @@ public class NetStateChangeBroadcast extends BroadcastReceiver {
      * @param context where the BroadcastReceiver unregister from
      */
     public void unRegisterNetStateChangeReceiver(Context context) {
-        if (context != null) {
-            context.unregisterReceiver(mNetStateChangeReceiver);
+        try {
+            if (context != null) {
+                context.unregisterReceiver(mNetStateChangeReceiver);
+            }
+        }catch (Exception e){
+            e.printStackTrace();
         }
     }
 

@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     android:orientation="vertical"
-    android:background="@color/colorBackground">
+    android:background="?attr/backgroundColor">
     <android.support.v4.widget.SwipeRefreshLayout
         android:id="@+id/srl_content_common_list"
         android:layout_width="match_parent"

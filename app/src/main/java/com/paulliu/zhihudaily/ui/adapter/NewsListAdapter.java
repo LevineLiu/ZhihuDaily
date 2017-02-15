@@ -2,6 +2,7 @@ package com.paulliu.zhihudaily.ui.adapter;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.support.v7.app.AppCompatDelegate;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -66,6 +67,13 @@ public class NewsListAdapter extends RecyclerView.Adapter{
                     mOnListItemClickListener.onItemClick(newsEntity);
             }
         });
+        if(AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES){
+            ((ItemViewHolder) holder).cardView.setBackgroundResource(R.color.colorCardViewBackgroundDark);
+            ((ItemViewHolder) holder).titleTv.setTextColor(mContext.getResources().getColor(R.color.colorTextColorDark));
+        }else{
+            ((ItemViewHolder) holder).cardView.setBackgroundResource(R.color.colorCardViewBackground);
+            ((ItemViewHolder) holder).titleTv.setTextColor(mContext.getResources().getColor(R.color.colorTextColor));
+        }
     }
 
     @Override

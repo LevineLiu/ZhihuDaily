@@ -109,7 +109,7 @@ public class CommentListActivity extends BaseAppCompatActivity implements OnLoad
     private void initRecyclerView(){
         mLinearLayoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(mLinearLayoutManager);
-        mRecyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
+        mRecyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL){});
         mAdapter = new CommentListAdapter(this, mLinearLayoutManager){
             @Override
             public void foldShortComments() {

@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="@dimen/banner_height"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:ignore="contentDescription">
+    tools:ignore="contentDescription"
+    android:background="@color/colorBanner">
     <ImageView
         android:id="@+id/iv_banner"
         android:layout_width="match_parent"

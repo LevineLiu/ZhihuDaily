@@ -1,8 +1,11 @@
 package com.paulliu.zhihudaily.ui.activity;
 
+import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AppCompatDelegate;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -10,12 +13,20 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.LinearLayout;
 
 import com.paulliu.zhihudaily.R;
+import com.paulliu.zhihudaily.ZhiHuDailyApplication;
+import com.paulliu.zhihudaily.constant.SharedPreferenceConstant;
 import com.paulliu.zhihudaily.ui.BaseAppCompatActivity;
+import com.paulliu.zhihudaily.ui.BaseFragment;
 import com.paulliu.zhihudaily.ui.FragmentSwitcher;
 import com.paulliu.zhihudaily.ui.fragment.HomeFragment;
 import com.paulliu.zhihudaily.ui.fragment.ThemeFragment;
+
+import java.util.Iterator;
+import java.util.Map;
+import java.util.Set;
 
 import butterknife.BindView;
 
@@ -34,6 +45,7 @@ public class MainActivity extends BaseAppCompatActivity
     private FragmentSwitcher mFragmentSwitcher;
     private int mCurrentFragmentPosition;
 
+    private View mNavigationHeader;
 
     @BindView(R.id.fab) FloatingActionButton mFab;
     @BindView(R.id.drawer_layout) DrawerLayout mDrawerLayout;
@@ -83,6 +95,8 @@ public class MainActivity extends BaseAppCompatActivity
         });
         if(getSupportActionBar() != null)
             getSupportActionBar().setTitle(getString(R.string.ic_menu_home));
+
+        mNavigationHeader = mNavigationView.getHeaderView(0);
     }
 
     @Override
@@ -109,15 +123,23 @@ public class MainActivity extends BaseAppCompatActivity
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+        switch (id){
+            case R.id.action_settings:
+                break;
+            case R.id.action_night_mode:
+                if(AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES){
+                    item.setTitle(R.string.night_mode);
+                    saveDayNightMode(true);
+                }
+                else {
+                    item.setTitle(R.string.day_mode);
+                    saveDayNightMode(false);
+                }
+                setDayNightMode();
+                break;
         }
+
 
         return super.onOptionsItemSelected(item);
     }
@@ -226,5 +248,40 @@ public class MainActivity extends BaseAppCompatActivity
         return true;
     }
 
+    /**
+     * 切换日间模式和夜间模式
+     */
+    private void setDayNightMode(){
+        if(AppCompatDelegate.getDefaultNightMode() != AppCompatDelegate.MODE_NIGHT_YES){
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+            setTheme(R.style.AppTheme_Dark);
+            mNavigationHeader.setBackgroundResource(R.color.colorPrimaryNightMode);
+            mNavigationView.setBackgroundResource(R.color.colorBackgroundDark);
+            mToolbar.setBackgroundResource(R.color.colorPrimaryNightMode);
+            if(Build.VERSION.SDK_INT >= 21)
+                getWindow().setStatusBarColor(getResources().getColor(R.color.colorPrimaryDarkNightMode));
+        }else{
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+            setTheme(R.style.AppTheme_Light);
+            mNavigationHeader.setBackgroundResource(R.color.colorPrimary);
+            mNavigationView.setBackgroundResource(android.R.color.white);
+            mToolbar.setBackgroundResource(R.color.colorPrimary);
+            if(Build.VERSION.SDK_INT >= 21)
+                getWindow().setStatusBarColor(getResources().getColor(R.color.colorPrimaryDark));
+        }
+        Map<Integer, Fragment> fragmentMap = mFragmentSwitcher.getFragmentMap();
+        Set<Integer> set = fragmentMap.keySet();
+        Iterator<Integer> iterator = set.iterator();
+        while (iterator.hasNext()){
+            Fragment fragment = mFragmentSwitcher.getFragment(iterator.next());
+            ((BaseFragment) fragment).setDayNightMode();
+        }
+    }
 
+    private void saveDayNightMode(boolean isDayMode){
+        SharedPreferences sharedPreferences = ((ZhiHuDailyApplication) getApplication()).getAppComponent().getSharedPreferences();
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putBoolean(SharedPreferenceConstant.IS_DAY_MODE, isDayMode);
+        editor.apply();
+    }
 }

@@ -3,6 +3,7 @@ package com.paulliu.zhihudaily.ui.fragment;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.app.AppCompatDelegate;
 import android.support.v7.widget.RecyclerView;
 
 import com.paulliu.zhihudaily.R;
@@ -124,7 +125,11 @@ public class ThemeFragment extends BaseFragment implements SwipeRefreshLayout.On
 
     private void initRefreshLayout() {
         mRefreshLayout.setOnRefreshListener(this);
-        mRefreshLayout.setColorSchemeColors(getResources().getColor(R.color.colorPrimary));
+
+        if(AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES)
+            mRefreshLayout.setColorSchemeColors(getResources().getColor(R.color.colorPrimaryNightMode));
+        else
+            mRefreshLayout.setColorSchemeColors(getResources().getColor(R.color.colorPrimary));
 
         SpeedyLinearLayoutManager layoutManager = new SpeedyLinearLayoutManager(mContext);
 

@@ -25,13 +25,13 @@ public class HomeFragmentInteractor {
 
     public Observable<DailyNews> createLatestNewsObservable(){
         return mApi.getLatestNews()
-                   .subscribeOn(Schedulers.io())
-                   .observeOn(AndroidSchedulers.mainThread());
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread());
     }
 
     public Observable<DailyNews> createBeforeNewsObservable(String date){
         return mApi.getBeforeNews(date)
-                   .subscribeOn(Schedulers.io())
-                   .observeOn(AndroidSchedulers.mainThread());
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread());
     }
 }

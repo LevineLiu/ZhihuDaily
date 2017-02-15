@@ -154,6 +154,10 @@ public class WebViewBrowseView extends LinearLayout implements View.OnClickListe
         mWebView.loadData(getHtmlDataWithCss(css, body), "text/html; charset=UTF-8", "utf-8");
     }
 
+    public void loadNightModeHtml(String css, String body){
+        mWebView.loadData(getNightModeHtmlWithCss(css, body), "text/html; charset=UTF-8", "utf-8");
+    }
+
     private String getHtmlData(String bodyHTML) {
         String head = "<head>" +
                 "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0, user-scalable=no\"> " +
@@ -169,6 +173,15 @@ public class WebViewBrowseView extends LinearLayout implements View.OnClickListe
                 "<link href=" + css + " rel=stylesheet type=text/css/>"+
                 "</head>";
         return "<html>" + head + "<body>" + bodyHTML + "</body></html>";
+    }
+
+    private String getNightModeHtmlWithCss(String css, String bodyHTML) {
+        String head = "<head>" +
+                "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0, user-scalable=no\"> " +
+                "<style>img{max-width: 100%; width:auto; height:auto;}</style>" +
+                "<link href=" + css + " rel=stylesheet type=text/css/>"+
+                "</head>";
+        return "<html>" + head + "<body  class=\"night\">" + bodyHTML + "</body></html>";
     }
 
     public boolean canGoBack() {

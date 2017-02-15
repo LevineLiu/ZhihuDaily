@@ -1,5 +1,7 @@
 package com.paulliu.zhihudaily.injector.components;
 
+import android.content.SharedPreferences;
+
 import com.paulliu.zhihudaily.ZhiHuDailyApplication;
 import com.paulliu.zhihudaily.api.ZhiHuDailyApi;
 import com.paulliu.zhihudaily.injector.modules.AppModule;
@@ -19,4 +21,5 @@ import dagger.Component;
 public interface AppComponent {
     ZhiHuDailyApplication getApplication();
     ZhiHuDailyApi getZhiHuAPi();
+    SharedPreferences getSharedPreferences();
 }

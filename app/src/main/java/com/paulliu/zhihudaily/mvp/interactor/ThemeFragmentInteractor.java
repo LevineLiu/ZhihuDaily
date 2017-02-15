@@ -25,14 +25,14 @@ public class ThemeFragmentInteractor {
 
     public Observable<ThemeEntity> createThemeObservable(int themeId){
         return mApi.getTheme(themeId)
-                   .subscribeOn(Schedulers.io())
-                   .observeOn(AndroidSchedulers.mainThread());
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread());
     }
 
     public Observable<ThemeEntity> createBeforeThemeObservable(int themeId, int storyId){
         return mApi.getBeforeTheme(themeId, storyId)
-                   .subscribeOn(Schedulers.io())
-                   .observeOn(AndroidSchedulers.mainThread());
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread());
     }
 
 }

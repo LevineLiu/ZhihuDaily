@@ -2,6 +2,7 @@ package com.paulliu.zhihudaily.ui.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatDelegate;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
@@ -90,25 +91,6 @@ public class NewsDetailActivity extends BaseAppCompatActivity implements INewsDe
         return false;
     }
 
-//    @Override
-//    public boolean onCreateOptionsMenu(Menu menu) {
-//        getMenuInflater().inflate(R.menu.news_detail, menu);
-//        return true;
-//    }
-//
-//    @Override
-//    public boolean onOptionsItemSelected(MenuItem item) {
-//        switch (item.getItemId()) {
-//            case R.id.action_share:
-//                Intent intent = new Intent(Intent.ACTION_SEND);
-//                intent.putExtra(Intent.EXTRA_TEXT, mShareUrl);
-//                intent.setType("text/plain");
-//                startActivity(intent);
-//                break;
-//        }
-//        return super.onOptionsItemSelected(item);
-//    }
-
 
     @Override
     public void getNewsDetailSuccess(NewsDetailEntity result) {
@@ -121,8 +103,13 @@ public class NewsDetailActivity extends BaseAppCompatActivity implements INewsDe
             } else
                 mBannerRl.setVisibility(View.GONE);
             if (result.getBody() != null) {
-                if (result.getCss() != null)
-                    mNewsDetailWv.loadHtmlWithData(result.getCss().get(0), result.getBody());
+                if (result.getCss() != null){
+                    if(AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES)
+                        mNewsDetailWv.loadNightModeHtml(result.getCss().get(0), result.getBody());
+                    else
+                        mNewsDetailWv.loadHtmlWithData(result.getCss().get(0), result.getBody());
+
+                }
                 else
                     mNewsDetailWv.loadHtmlWithData(result.getBody());
             }else

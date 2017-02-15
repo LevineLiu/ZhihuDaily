@@ -22,7 +22,7 @@
         android:layout_height="wrap_content"
         android:textSize="@dimen/big_small_text"
         android:layout_toRightOf="@id/iv_user_avatar"
-        android:textColor="@android:color/black"
+        android:textColor="?attr/primaryTextColor"
         tools:text="hhhhhh"/>
     <TextView
         android:id="@+id/tv_comment_content"
@@ -30,6 +30,7 @@
         android:layout_height="wrap_content"
         android:layout_toRightOf="@id/iv_user_avatar"
         android:layout_below="@id/iv_user_avatar"
+        android:textColor="?attr/primaryTextColor"
         tools:text="kkkkkkkkkkkkk"/>
     <TextView
         android:id="@+id/tv_like_count"
@@ -39,5 +40,6 @@
         android:drawablePadding="@dimen/drawable_padding"
         android:drawableLeft="@drawable/ic_thumb_up_grey"
         android:layout_alignParentRight="true"
+        android:textColor="?attr/primaryTextColor"
         tools:text="15"/>
 </RelativeLayout>

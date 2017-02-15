@@ -75,7 +75,7 @@ public class CommentListAdapter extends RecyclerViewLoadMoreAdapter<CommentEntit
 
     @Override
     protected RecyclerView.ViewHolder onCreateItemViewHolder(ViewGroup parent) {
-        return new ItemViewHolder(mInflater.inflate(R.layout.item_comoment_list, parent, false));
+        return new ItemViewHolder(mInflater.inflate(R.layout.item_comment_list, parent, false));
     }
 
     @Override

@@ -30,8 +30,8 @@ public class SplashInteractor implements ICommonInteractor<SplashImage>{
     @Override
     public Observable<SplashImage> createObservable() {
         return mApi.getStartImage("1080*1920")
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread());
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread());
     }
 
     public int getSplashBackgroundResId(){

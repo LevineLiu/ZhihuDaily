@@ -2,6 +2,7 @@ package com.paulliu.zhihudaily.ui.activity;
 
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.app.AppCompatDelegate;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
@@ -116,7 +117,10 @@ public class DailyNewsActivity extends BaseAppCompatActivity implements SwipeRef
 
     private void initRefreshLayout(){
         mSwipeRefreshLayout.setOnRefreshListener(this);
-        mSwipeRefreshLayout.setColorSchemeColors(getResources().getColor(R.color.colorPrimary));
+        if(AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES)
+            mSwipeRefreshLayout.setColorSchemeColors(getResources().getColor(R.color.colorPrimaryNightMode));
+        else
+            mSwipeRefreshLayout.setColorSchemeColors(getResources().getColor(R.color.colorPrimary));
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         mAdapter = new NewsListAdapter(this);
         mAdapter.setOnListItemClickListener(this);

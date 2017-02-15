@@ -3,5 +3,13 @@
     <color name="colorPrimary">#009688</color>
     <color name="colorPrimaryDark">#00897b</color>
     <color name="colorAccent">#00796b</color>
+    <color name="colorCardViewBackground">@android:color/white</color>
+    <color name="colorCardViewBackgroundDark">#28292e</color>
     <color name="colorBackground">#f3f3f3</color>
+    <color name="colorBackgroundDark">#343434</color>
+    <color name="colorTextColor">#33343B</color>
+    <color name="colorTextColorDark">#F4F4F6</color>
+    <color name="colorBanner">#4a4a4a</color>
+    <color name="colorPrimaryNightMode">#222222</color>
+    <color name="colorPrimaryDarkNightMode">@android:color/black</color>
 </resources>

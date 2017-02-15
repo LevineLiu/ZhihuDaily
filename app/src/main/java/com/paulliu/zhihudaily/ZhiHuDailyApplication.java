@@ -1,7 +1,9 @@
 package com.paulliu.zhihudaily;
 
 import android.app.Application;
+import android.support.v7.app.AppCompatDelegate;
 
+import com.paulliu.zhihudaily.constant.SharedPreferenceConstant;
 import com.paulliu.zhihudaily.injector.components.AppComponent;
 import com.paulliu.zhihudaily.injector.components.DaggerAppComponent;
 import com.paulliu.zhihudaily.injector.modules.AppModule;
@@ -29,6 +31,11 @@ public class ZhiHuDailyApplication extends Application{
                 .memoryCache(new LruCache(MAX_MEMORY_CACHE))
                 .build();
         Picasso.setSingletonInstance(picasso);
+        if(mAppComponent.getSharedPreferences().getBoolean(SharedPreferenceConstant.IS_DAY_MODE, true))
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+        else
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+
     }
 
     public AppComponent getAppComponent(){

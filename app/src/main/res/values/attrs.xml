@@ -4,4 +4,11 @@
         <attr name="progress_visible" format="boolean"/>
         <attr name="webview_client_enabled" format="boolean"/>
     </declare-styleable>
+    <declare-styleable name="ZhiHuDailyTheme">
+        <attr name="primaryTextColor" format="color"/>
+        <attr name="secondaryTextColor" format="color"/>
+        <attr name="dividerColor" format="color"/>
+        <attr name="backgroundCardColor" format="color"/>
+        <attr name="backgroundColor" format="color"/>
+    </declare-styleable>
 </resources>

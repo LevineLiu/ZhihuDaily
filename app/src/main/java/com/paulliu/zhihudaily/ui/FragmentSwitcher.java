@@ -34,6 +34,10 @@ public class FragmentSwitcher {
         mOperationMap = new SparseIntArray();
     }
 
+    public Map<Integer, Fragment> getFragmentMap(){
+        return mFragmentMap;
+    }
+
     public void addFragment(int position, Fragment fragment, int operation) {
         mFragmentMap.put(position, fragment);
         addFragment(fragment, position);

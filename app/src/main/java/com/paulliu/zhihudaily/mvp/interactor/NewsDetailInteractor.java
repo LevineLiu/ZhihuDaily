@@ -26,13 +26,13 @@ public class NewsDetailInteractor{
 
     public Observable<NewsDetailEntity> createNewsDetailObservable(int id) {
         return mApi.getNewsDetail(id)
-                   .subscribeOn(Schedulers.io())
-                   .observeOn(AndroidSchedulers.mainThread());
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread());
     }
 
     public Observable<NewsExtraEntity> createNewsExtraObservable(int id) {
         return mApi.getNewsExtra(id)
-                   .subscribeOn(Schedulers.io())
-                   .observeOn(AndroidSchedulers.mainThread());
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread());
     }
 }

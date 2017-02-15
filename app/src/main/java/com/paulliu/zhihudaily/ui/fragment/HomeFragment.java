@@ -5,7 +5,10 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.app.AppCompatDelegate;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
+import android.view.ViewGroup;
 
 import com.paulliu.zhihudaily.R;
 import com.paulliu.zhihudaily.constant.Constants;
@@ -127,7 +130,10 @@ public class HomeFragment extends BaseFragment implements SwipeRefreshLayout.OnR
 
     private void initRefreshLayout() {
         mRefreshLayout.setOnRefreshListener(this);
-        mRefreshLayout.setColorSchemeColors(getResources().getColor(R.color.colorPrimary));
+        if(AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES)
+            mRefreshLayout.setColorSchemeColors(getResources().getColor(R.color.colorPrimaryNightMode));
+        else
+            mRefreshLayout.setColorSchemeColors(getResources().getColor(R.color.colorPrimary));
 
         SpeedyLinearLayoutManager layoutManager = new SpeedyLinearLayoutManager(mContext);
         mAdapter = new HomeNewsListAdapter(mContext, layoutManager) {

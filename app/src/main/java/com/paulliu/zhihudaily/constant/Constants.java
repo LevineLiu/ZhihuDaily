@@ -8,4 +8,6 @@ package com.paulliu.zhihudaily.constant;
 
 public class Constants {
     public final static int DELAY_TIME = 300;
+    public final static int DAY_MODE = 0X100;
+    public final static int NIGHT_MODE = 0x200;
 }

@@ -1,5 +1,8 @@
 package com.paulliu.zhihudaily.injector.modules;
 
+import android.content.Context;
+import android.content.SharedPreferences;
+
 import com.paulliu.zhihudaily.ZhiHuDailyApplication;
 
 import javax.inject.Singleton;
@@ -16,6 +19,7 @@ import dagger.Provides;
 @Module
 public class AppModule {
     private ZhiHuDailyApplication mApplication;
+    private final static String SHARED_PREFERENCE_NAME = "ZhiHuDailySharedPreference";
 
     public AppModule(ZhiHuDailyApplication application){
         mApplication = application;
@@ -25,5 +29,11 @@ public class AppModule {
     @Provides
     public ZhiHuDailyApplication provideApplicationContext(){
         return mApplication;
+    }
+
+    @Singleton
+    @Provides
+    public SharedPreferences provideSharedPreferences(){
+        return mApplication.getSharedPreferences(SHARED_PREFERENCE_NAME, Context.MODE_PRIVATE);
     }
 }
