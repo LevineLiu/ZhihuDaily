@@ -2,7 +2,8 @@
 采用RxJava2 + Retrofit2 + Dagger + mvp 架构开发的非官方简化版知乎日报。<br/>
 # ScreenShot
 ![](/screenshot/Screenshot_20170213-142308.png)
-![](/screenshot/Screenshot_20170213-142404.png)
+![](/screenshot/Screenshot_20170216-162852.png)
+![](/screenshot/Screenshot_20170216-163101.png)
 ![](/screenshot/Screenshot_20170213-142421.png)
 ![](/screenshot/Screenshot_20170213-142507.png)
 # API 
