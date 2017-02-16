@@ -91,6 +91,12 @@ public class NewsDetailActivity extends BaseAppCompatActivity implements INewsDe
         return false;
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if(mNewsDetailWv != null)
+            mNewsDetailWv.release();
+    }
 
     @Override
     public void getNewsDetailSuccess(NewsDetailEntity result) {
@@ -104,14 +110,19 @@ public class NewsDetailActivity extends BaseAppCompatActivity implements INewsDe
                 mBannerRl.setVisibility(View.GONE);
             if (result.getBody() != null) {
                 if (result.getCss() != null){
-                    if(AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES)
-                        mNewsDetailWv.loadNightModeHtml(result.getCss().get(0), result.getBody());
-                    else
-                        mNewsDetailWv.loadHtmlWithData(result.getCss().get(0), result.getBody());
+                    //remove headline space
+                    String body = result.getBody().replace("<div class=\"headline\">\n" +
+                            "\n" + "<div class=\"img-place-holder\"></div>", "");
+                    if(AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES){
+                        mNewsDetailWv.loadNightModeHtml(result.getCss().get(0), body);
+                    }
+                    else{
+                        mNewsDetailWv.loadHtmlWithData(result.getCss().get(0), body);
+                    }
 
                 }
                 else
-                    mNewsDetailWv.loadHtmlWithData(result.getBody());
+                    mNewsDetailWv.loadHtmlWithLocalCss("common.css", result.getBody());
             }else
                 mNewsDetailWv.loadUrl(result.getShare_url());
         }

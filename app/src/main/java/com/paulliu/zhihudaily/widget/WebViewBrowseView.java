@@ -142,7 +142,7 @@ public class WebViewBrowseView extends LinearLayout implements View.OnClickListe
         mWebView.loadUrl(url);
     }
 
-    public void loadHtml(String url) {
+    public void loadHtmlWithUrl(String url) {
         mWebView.loadData(url, "text/html; charset=UTF-8", "utf-8");
     }
 
@@ -154,6 +154,16 @@ public class WebViewBrowseView extends LinearLayout implements View.OnClickListe
         mWebView.loadData(getHtmlDataWithCss(css, body), "text/html; charset=UTF-8", "utf-8");
     }
 
+    /**
+     * load local css
+     */
+    public void loadHtmlWithLocalCss(String css, String body){
+        mWebView.loadDataWithBaseURL("file:///android_asset/", getHtmlDataWithCss(css, body), "text/html; charset=UTF-8", "utf-8", null);
+    }
+
+    /**
+     * load html of night mode
+     */
     public void loadNightModeHtml(String css, String body){
         mWebView.loadData(getNightModeHtmlWithCss(css, body), "text/html; charset=UTF-8", "utf-8");
     }
@@ -170,7 +180,7 @@ public class WebViewBrowseView extends LinearLayout implements View.OnClickListe
         String head = "<head>" +
                 "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0, user-scalable=no\"> " +
                 "<style>img{max-width: 100%; width:auto; height:auto;}</style>" +
-                "<link href=" + css + " rel=stylesheet type=text/css/>"+
+                "<link href=" + css + " rel=\"stylesheet\" type=\"text/css\"/>"+
                 "</head>";
         return "<html>" + head + "<body>" + bodyHTML + "</body></html>";
     }
@@ -179,7 +189,7 @@ public class WebViewBrowseView extends LinearLayout implements View.OnClickListe
         String head = "<head>" +
                 "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0, user-scalable=no\"> " +
                 "<style>img{max-width: 100%; width:auto; height:auto;}</style>" +
-                "<link href=" + css + " rel=stylesheet type=text/css/>"+
+                "<link href=" + css + " rel=\"stylesheet\" type=\"text/css\"/>"+
                 "</head>";
         return "<html>" + head + "<body  class=\"night\">" + bodyHTML + "</body></html>";
     }
@@ -216,8 +226,12 @@ public class WebViewBrowseView extends LinearLayout implements View.OnClickListe
     }
 
     public void release() {
-        if (mWebView != null)
+        if (mWebView != null){
+            mWebView.removeAllViews();
             mWebView.destroy();
+            mWebView = null;
+            removeAllViews();
+        }
     }
 
     @Override

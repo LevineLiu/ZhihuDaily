@@ -125,8 +125,6 @@ public class MainActivity extends BaseAppCompatActivity
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         switch (id){
-            case R.id.action_settings:
-                break;
             case R.id.action_night_mode:
                 if(AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES){
                     item.setTitle(R.string.night_mode);
