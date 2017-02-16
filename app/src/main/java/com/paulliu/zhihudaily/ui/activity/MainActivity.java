@@ -118,6 +118,11 @@ public class MainActivity extends BaseAppCompatActivity
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
+        MenuItem menuItem = menu.findItem(R.id.action_night_mode);
+        if(AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES)
+            menuItem.setTitle(R.string.day_mode);
+        else
+            menuItem.setTitle(R.string.night_mode);
         return true;
     }
 
