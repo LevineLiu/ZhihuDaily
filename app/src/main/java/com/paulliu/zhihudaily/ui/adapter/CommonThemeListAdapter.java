@@ -17,6 +17,7 @@ import com.paulliu.zhihudaily.R;
 import com.paulliu.zhihudaily.entity.EditorEntity;
 import com.paulliu.zhihudaily.entity.NewsEntity;
 import com.paulliu.zhihudaily.entity.ThemeEntity;
+import com.paulliu.zhihudaily.listener.OnListItemClickListener;
 import com.paulliu.zhihudaily.ui.adapter.base.RecyclerViewLoadMoreAdapter;
 import com.paulliu.zhihudaily.widget.CircleTransform;
 import com.squareup.picasso.Picasso;
@@ -50,7 +51,7 @@ public class CommonThemeListAdapter extends RecyclerViewLoadMoreAdapter<NewsEnti
 
     @Override
     protected RecyclerView.ViewHolder onCreateItemViewHolder(ViewGroup parent) {
-        return new CommonThemeListAdapter.ItemViewHolder(mInflater.inflate(R.layout.item_news_list, parent, false));
+        return new CommonThemeListAdapter.ItemViewHolder(mInflater.inflate(R.layout.item_news_list, parent, false), mOnListItemClickListener);
     }
 
     @Override
@@ -92,13 +93,7 @@ public class CommonThemeListAdapter extends RecyclerViewLoadMoreAdapter<NewsEnti
                             .config(Bitmap.Config.RGB_565)
                             .into(((ItemViewHolder) viewHolder).imageView);
                 ((ItemViewHolder) viewHolder).titleTv.setText(newsEntity.getTitle());
-                ((ItemViewHolder) viewHolder).cardView.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        if (mOnListItemClickListener != null)
-                            mOnListItemClickListener.onItemClick(newsEntity);
-                    }
-                });
+
                 if(AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES){
                     ((ItemViewHolder) viewHolder).cardView.setBackgroundResource(R.color.colorCardViewBackgroundDark);
                     ((ItemViewHolder) viewHolder).titleTv.setTextColor(mContext.getResources().getColor(R.color.colorTextColorDark));
@@ -155,11 +150,17 @@ public class CommonThemeListAdapter extends RecyclerViewLoadMoreAdapter<NewsEnti
         TextView titleTv;
         ImageView imageView;
 
-        public ItemViewHolder(View v) {
+        public ItemViewHolder(View v, final OnListItemClickListener listener) {
             super(v);
             cardView = ButterKnife.findById(v, R.id.card_view_item_news);
             titleTv = ButterKnife.findById(v, R.id.tv_item_news_title);
             imageView = ButterKnife.findById(v, R.id.iv_item_news);
+            v.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    listener.onItemClick(getLayoutPosition() - 1);
+                }
+            });
         }
     }
 

@@ -7,6 +7,6 @@ package com.paulliu.zhihudaily.listener;
  */
 public interface OnListItemClickListener {
 
-    void onItemClick(Object param);
+    void onItemClick(int position);
 
 }

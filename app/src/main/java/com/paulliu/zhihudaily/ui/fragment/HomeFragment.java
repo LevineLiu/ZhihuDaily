@@ -88,8 +88,8 @@ public class HomeFragment extends BaseFragment implements SwipeRefreshLayout.OnR
     }
 
     @Override
-    public void onItemClick(Object param) {
-        NewsEntity entity = (NewsEntity) param;
+    public void onItemClick(int position) {
+        NewsEntity entity = mAdapter.getNewsList().get(position);
         Bundle bundle = new Bundle();
         bundle.putInt(NewsDetailActivity.NEWS_DETAIL_ID, entity.getId());
         navigateTo(NewsDetailActivity.class, bundle);

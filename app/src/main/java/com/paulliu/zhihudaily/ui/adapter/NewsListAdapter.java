@@ -14,6 +14,7 @@ import android.widget.TextView;
 import com.paulliu.zhihudaily.R;
 import com.paulliu.zhihudaily.entity.NewsEntity;
 import com.paulliu.zhihudaily.listener.OnListItemClickListener;
+import com.paulliu.zhihudaily.ui.adapter.base.BaseViewHolder;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -44,9 +45,12 @@ public class NewsListAdapter extends RecyclerView.Adapter{
         notifyDataSetChanged();
     }
 
+    public List<NewsEntity> getData(){
+        return mData;
+    }
     @Override
     public ItemViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        return new ItemViewHolder(LayoutInflater.from(mContext).inflate(R.layout.item_news_list, parent, false));
+        return new ItemViewHolder(LayoutInflater.from(mContext).inflate(R.layout.item_news_list, parent, false), mOnListItemClickListener);
     }
 
     @Override
@@ -60,13 +64,7 @@ public class NewsListAdapter extends RecyclerView.Adapter{
                     .config(Bitmap.Config.RGB_565)
                     .into(((ItemViewHolder)holder).imageView);
         ((ItemViewHolder)holder).titleTv.setText(newsEntity.getTitle());
-        ((ItemViewHolder)holder).cardView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(mOnListItemClickListener != null)
-                    mOnListItemClickListener.onItemClick(newsEntity);
-            }
-        });
+
         if(AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES){
             ((ItemViewHolder) holder).cardView.setBackgroundResource(R.color.colorCardViewBackgroundDark);
             ((ItemViewHolder) holder).titleTv.setTextColor(mContext.getResources().getColor(R.color.colorTextColorDark));
@@ -81,13 +79,13 @@ public class NewsListAdapter extends RecyclerView.Adapter{
         return mData != null ? mData.size() : 0;
     }
 
-    private static class ItemViewHolder extends RecyclerView.ViewHolder {
+    private static class ItemViewHolder extends BaseViewHolder{
         CardView cardView;
         TextView titleTv;
         ImageView imageView;
 
-        public ItemViewHolder(View v) {
-            super(v);
+        public ItemViewHolder(View v, OnListItemClickListener listener) {
+            super(v, listener);
             cardView = ButterKnife.findById(v, R.id.card_view_item_news);
             titleTv = ButterKnife.findById(v, R.id.tv_item_news_title);
             imageView = ButterKnife.findById(v, R.id.iv_item_news);
