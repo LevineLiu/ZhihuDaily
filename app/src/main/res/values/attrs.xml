@@ -3,6 +3,7 @@
     <declare-styleable name="WebViewBrowseView">
         <attr name="progress_visible" format="boolean"/>
         <attr name="webview_client_enabled" format="boolean"/>
+        <attr name="webview_background" format="color"/>
     </declare-styleable>
     <declare-styleable name="ZhiHuDailyTheme">
         <attr name="primaryTextColor" format="color"/>

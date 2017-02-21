@@ -6,6 +6,7 @@ import android.content.res.TypedArray;
 import android.os.Build;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -87,6 +88,10 @@ public class WebViewBrowseView extends LinearLayout implements View.OnClickListe
 
         LayoutParams webParams = new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 0, 1);
         mWebView.setLayoutParams(webParams);
+
+        TypedValue webViewBackground = new TypedValue();
+        context.getTheme().resolveAttribute(R.attr.backgroundColor, webViewBackground, true);
+        mWebView.setBackgroundColor(webViewBackground.resourceId);
         addView(mWebView);
 
         mWebView.setWebChromeClient(new WebChromeClient() {
