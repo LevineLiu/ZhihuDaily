@@ -88,10 +88,8 @@ public class WebViewBrowseView extends LinearLayout implements View.OnClickListe
 
         LayoutParams webParams = new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 0, 1);
         mWebView.setLayoutParams(webParams);
+        mWebView.setBackgroundColor(0);
 
-        TypedValue webViewBackground = new TypedValue();
-        context.getTheme().resolveAttribute(R.attr.backgroundColor, webViewBackground, true);
-        mWebView.setBackgroundColor(webViewBackground.resourceId);
         addView(mWebView);
 
         mWebView.setWebChromeClient(new WebChromeClient() {
