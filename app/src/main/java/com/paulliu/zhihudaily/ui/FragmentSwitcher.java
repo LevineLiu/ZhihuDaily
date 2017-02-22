@@ -83,27 +83,25 @@ public class FragmentSwitcher {
     private void showHideFragment(int position) {
         if(mFragmentMap == null)
             return;
-        Set<Integer> set = mFragmentMap.keySet();
-        Iterator iterator = set.iterator();
-        while (iterator.hasNext()){
-            int key = (int)iterator.next();
-            if (mFragmentMap.get(key) != null) {
-                if (key == position)
-                    showFragment(mFragmentMap.get(key));
+
+        Set<Map.Entry<Integer, Fragment>> set = mFragmentMap.entrySet();
+        for (Map.Entry<Integer, Fragment> map : set){
+            if(map.getValue() != null){
+                if(map.getKey() == position)
+                    showFragment(map.getValue());
                 else
-                    hideFragment(mFragmentMap.get(key));
-            } else {
+                    hideFragment(map.getValue());
+            }else {
                 FragmentManager fragmentManager = ((FragmentActivity) mContext).getSupportFragmentManager();
                 Fragment fragment = fragmentManager.findFragmentByTag(position + "");
                 if(fragment != null){
-                    if (key == position)
+                    if (map.getKey() == position)
                         showFragment(fragment);
                     else
                         hideFragment(fragment);
                 }
             }
         }
-
     }
 
     private void showFragment(Fragment fragment) {
