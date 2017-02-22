@@ -96,6 +96,8 @@ public class NewsDetailActivity extends BaseAppCompatActivity implements INewsDe
         super.onDestroy();
         if(mNewsDetailWv != null)
             mNewsDetailWv.release();
+        if(mPresenter != null)
+            mPresenter.onDestroyView();
     }
 
     @Override
