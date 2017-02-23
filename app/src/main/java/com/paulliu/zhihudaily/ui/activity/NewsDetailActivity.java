@@ -47,7 +47,8 @@ public class NewsDetailActivity extends BaseAppCompatActivity implements INewsDe
     @Inject
     NewsDetailPresenter mPresenter;
 
-    @OnClick({R.id.tv_news_comment, R.id.tv_news_share, R.id.tv_news_like})
+    @OnClick({R.id.tv_news_comment, R.id.tv_news_share, R.id.tv_news_like,
+            R.id.tv_news_collect})
     public void onClick(View view){
         switch (view.getId()){
             case R.id.tv_news_share:
@@ -61,6 +62,8 @@ public class NewsDetailActivity extends BaseAppCompatActivity implements INewsDe
                 bundle.putInt(CommentListActivity.NEWS_ID, mId);
                 bundle.putParcelable(CommentListActivity.NEWS_EXTRA, mNewsExtraEntity);
                 navigateTo(CommentListActivity.class, bundle);
+                break;
+            case R.id.tv_news_collect:
                 break;
             case R.id.tv_news_like:
                 break;
