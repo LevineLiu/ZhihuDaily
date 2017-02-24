@@ -72,7 +72,7 @@ public class ThemeFragment extends BaseFragment implements SwipeRefreshLayout.On
     public void onItemClick(int position) {
         NewsEntity entity = mAdapter.getData().get(position);
         Bundle bundle = new Bundle();
-        bundle.putInt(NewsDetailActivity.NEWS_DETAIL_ID, entity.getId());
+        bundle.putParcelable(NewsDetailActivity.EXTRA_NEWS_ENTITY, entity);
         navigateTo(NewsDetailActivity.class, bundle);
     }
 

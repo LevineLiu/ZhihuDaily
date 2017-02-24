@@ -10,7 +10,9 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.paulliu.zhihudaily.R;
+import com.paulliu.zhihudaily.db.ZhihuDailyDbManager;
 import com.paulliu.zhihudaily.entity.NewsDetailEntity;
+import com.paulliu.zhihudaily.entity.NewsEntity;
 import com.paulliu.zhihudaily.entity.NewsExtraEntity;
 import com.paulliu.zhihudaily.mvp.presenter.NewsDetailPresenter;
 import com.paulliu.zhihudaily.mvp.view.INewsDetailView;
@@ -30,11 +32,14 @@ import butterknife.OnClick;
  */
 
 public class NewsDetailActivity extends BaseAppCompatActivity implements INewsDetailView {
-    public final static String NEWS_DETAIL_ID = "news_detail_id";
+    public final static String EXTRA_NEWS_ENTITY = "news_entity";
 
     private int mId;
+    private boolean mIsNewsCollected;
     private String mShareUrl;
+    private NewsEntity mNewsEntity;
     private NewsExtraEntity mNewsExtraEntity;
+    private NewsDetailEntity mNewsDetailEntity;
 
     @BindView(R.id.iv_news_detail) ImageView mNewsDetailIv;
     @BindView(R.id.wv_news_detail) WebViewBrowseView mNewsDetailWv;
@@ -43,11 +48,12 @@ public class NewsDetailActivity extends BaseAppCompatActivity implements INewsDe
     @BindView(R.id.tv_news_comment) TextView mCommentTv;
     @BindView(R.id.tv_news_like) TextView mLikeTv;
     @BindView(R.id.rl_news_detail_banner) RelativeLayout mBannerRl;
+    @BindView(R.id.tv_news_collect) TextView mNewsCollectTv;
 
-    @Inject
-    NewsDetailPresenter mPresenter;
+    @Inject NewsDetailPresenter mPresenter;
+    @Inject ZhihuDailyDbManager mDbManager;
 
-    @OnClick({R.id.tv_news_comment, R.id.tv_news_share, R.id.tv_news_like})
+    @OnClick({R.id.tv_news_comment, R.id.tv_news_share, R.id.tv_news_like, R.id.tv_news_collect})
     public void onClick(View view){
         switch (view.getId()){
             case R.id.tv_news_share:
@@ -62,6 +68,21 @@ public class NewsDetailActivity extends BaseAppCompatActivity implements INewsDe
                 bundle.putParcelable(CommentListActivity.NEWS_EXTRA, mNewsExtraEntity);
                 navigateTo(CommentListActivity.class, bundle);
                 break;
+            case R.id.tv_news_collect:
+                if(mNewsDetailEntity != null){
+                    if(!mIsNewsCollected){
+                        if(mDbManager.insertFavoriteNews(mNewsEntity)){
+                            mIsNewsCollected = true;
+                            mNewsCollectTv.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_collected, 0, 0, 0);
+                        }
+                    }else{
+                        if(mDbManager.deleteFavoriteNews(mId)) {
+                            mIsNewsCollected = false;
+                            mNewsCollectTv.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_uncollected, 0, 0, 0);
+                        }
+                    }
+                }
+                break;
             case R.id.tv_news_like:
                 break;
         }
@@ -70,7 +91,9 @@ public class NewsDetailActivity extends BaseAppCompatActivity implements INewsDe
     @Override
     protected void getBundleExtra(Bundle extra) {
         if (extra != null) {
-            mId = extra.getInt(NEWS_DETAIL_ID);
+            mNewsEntity = extra.getParcelable(EXTRA_NEWS_ENTITY);
+            if(mNewsEntity != null)
+                mId = mNewsEntity.getId();
         }
     }
 
@@ -103,6 +126,7 @@ public class NewsDetailActivity extends BaseAppCompatActivity implements INewsDe
     @Override
     public void getNewsDetailSuccess(NewsDetailEntity result) {
         if (result != null) {
+            mNewsDetailEntity = result;
             mShareUrl = result.getShare_url();
             if (!TextUtils.isEmpty(result.getImage())) {
                 Picasso.with(this).load(result.getImage()).into(mNewsDetailIv);
@@ -154,5 +178,10 @@ public class NewsDetailActivity extends BaseAppCompatActivity implements INewsDe
         mPresenter.attachView(this);
         mPresenter.getNewsDetail(mId);
         mPresenter.getNewsExtra(mId);
+        mIsNewsCollected = mDbManager.isNewsCollected(mId);
+        if(mIsNewsCollected)
+            mNewsCollectTv.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_collected, 0, 0, 0);
+        else
+            mNewsCollectTv.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_uncollected, 0, 0, 0);
     }
 }

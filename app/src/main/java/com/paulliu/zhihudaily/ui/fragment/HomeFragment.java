@@ -91,7 +91,7 @@ public class HomeFragment extends BaseFragment implements SwipeRefreshLayout.OnR
     public void onItemClick(int position) {
         NewsEntity entity = mAdapter.getNewsList().get(position);
         Bundle bundle = new Bundle();
-        bundle.putInt(NewsDetailActivity.NEWS_DETAIL_ID, entity.getId());
+        bundle.putParcelable(NewsDetailActivity.EXTRA_NEWS_ENTITY, entity);
         navigateTo(NewsDetailActivity.class, bundle);
     }
 
@@ -162,9 +162,9 @@ public class HomeFragment extends BaseFragment implements SwipeRefreshLayout.OnR
         mSlidesCount = mAdapter.getTopStoriesCount();
         HomeBannerPagerAdapter adapter = new HomeBannerPagerAdapter(mContext) {
             @Override
-            public void onImageClick(int id) {
+            public void onImageClick(NewsEntity newsEntity) {
                 Bundle bundle = new Bundle();
-                bundle.putInt(NewsDetailActivity.NEWS_DETAIL_ID, id);
+                bundle.putParcelable(NewsDetailActivity.EXTRA_NEWS_ENTITY, newsEntity);
                 navigateTo(NewsDetailActivity.class, bundle);
             }
         };

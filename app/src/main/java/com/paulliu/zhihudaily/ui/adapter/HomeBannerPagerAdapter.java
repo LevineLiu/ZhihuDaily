@@ -9,7 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.paulliu.zhihudaily.R;
-import com.paulliu.zhihudaily.entity.TopNewsEntity;
+import com.paulliu.zhihudaily.entity.NewsEntity;
 import com.paulliu.zhihudaily.ui.adapter.base.BasePagerAdapter;
 import com.squareup.picasso.Picasso;
 
@@ -25,7 +25,7 @@ import butterknife.ButterKnife;
 public class HomeBannerPagerAdapter extends BasePagerAdapter {
     private Context mContext;
     private LayoutInflater mInflater;
-    private List<TopNewsEntity> mBannerList;
+    private List<NewsEntity> mBannerList;
 
     public HomeBannerPagerAdapter(Context context){
         super(context);
@@ -33,7 +33,7 @@ public class HomeBannerPagerAdapter extends BasePagerAdapter {
         mInflater = LayoutInflater.from(context);
     }
 
-    public void setData(List<TopNewsEntity> urls){
+    public void setData(List<NewsEntity> urls){
         mBannerList = urls;
         notifyDataSetChanged();
     }
@@ -41,7 +41,7 @@ public class HomeBannerPagerAdapter extends BasePagerAdapter {
     @Override
     public View instantiateView(final int position, View convertView, ViewGroup parent) {
         HomeBannerViewHolder viewHolder;
-        final TopNewsEntity topNewsEntity = mBannerList.get(position);
+        final NewsEntity topNewsEntity = mBannerList.get(position);
         if(convertView == null){
             viewHolder = new HomeBannerViewHolder();
             convertView = mInflater.inflate(R.layout.common_banner, parent, false);
@@ -56,7 +56,7 @@ public class HomeBannerPagerAdapter extends BasePagerAdapter {
         viewHolder.bannerIv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onImageClick(topNewsEntity.getId());
+                onImageClick(topNewsEntity);
             }
         });
         viewHolder.titleTv.setText(topNewsEntity.getTitle());
@@ -82,7 +82,7 @@ public class HomeBannerPagerAdapter extends BasePagerAdapter {
         return view == object;
     }
 
-    public void onImageClick(int id){}
+    public void onImageClick(NewsEntity newsEntity){}
 
     private static class HomeBannerViewHolder{
         ImageView bannerIv;

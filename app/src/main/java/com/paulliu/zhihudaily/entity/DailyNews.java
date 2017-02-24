@@ -11,7 +11,7 @@ import java.util.List;
 public class DailyNews {
     private String date;
     private List<NewsEntity> stories;
-    private List<TopNewsEntity> top_stories;
+    private List<NewsEntity> top_stories;
 
     public String getDate() {
         return date;
@@ -29,11 +29,11 @@ public class DailyNews {
         this.stories = stories;
     }
 
-    public List<TopNewsEntity> getTop_stories() {
+    public List<NewsEntity> getTop_stories() {
         return top_stories;
     }
 
-    public void setTop_stories(List<TopNewsEntity> top_stories) {
+    public void setTop_stories(List<NewsEntity> top_stories) {
         this.top_stories = top_stories;
     }
 }
