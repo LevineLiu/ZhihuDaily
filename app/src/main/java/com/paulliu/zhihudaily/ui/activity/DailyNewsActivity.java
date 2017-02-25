@@ -122,8 +122,9 @@ public class DailyNewsActivity extends BaseAppCompatActivity implements SwipeRef
         else
             mSwipeRefreshLayout.setColorSchemeColors(getResources().getColor(R.color.colorPrimary));
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
-        mAdapter = new NewsListAdapter(this);
+        mAdapter = new NewsListAdapter(this, layoutManager);
         mAdapter.setOnListItemClickListener(this);
+        mAdapter.setLoadMoreEnable(false);
         mRecyclerView.setLayoutManager(layoutManager);
         mRecyclerView.setAdapter(mAdapter);
 

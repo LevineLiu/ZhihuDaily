@@ -73,6 +73,19 @@ public class ZhihuDailyDbManager {
         return list;
     }
 
+    public List<NewsEntity> getFavoriteNewsList(int startIndex, int endIndex){
+        Cursor cursor = mSQLiteDatabase.rawQuery("select* from " + DbConstants.FavoriteNewsEntry.TABLE_NAME_FAVORITE +
+                " where " + DbConstants.FavoriteNewsEntry._ID + " >=? and " +
+                DbConstants.FavoriteNewsEntry._ID + " <=? ", new String[]{String.valueOf(startIndex), String.valueOf(endIndex)});
+        List<NewsEntity> list = new ArrayList<>();
+        while (cursor.moveToNext()){
+            list.add(getNewsEntityByCursor(cursor));
+        }
+        cursor.close();
+        return list;
+    }
+
+
     private NewsEntity getNewsEntityByCursor(Cursor cursor){
         NewsEntity newsEntity = new NewsEntity();
         newsEntity.setId(cursor.getInt(cursor.getColumnIndex(DbConstants.FavoriteNewsEntry.NEWS_ID)));

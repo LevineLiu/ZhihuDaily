@@ -13,7 +13,7 @@ class DbConstants {
     final static int DB_VERSION = 1;
 
     final static String CREATE_FAVORITE_NEWS_ENTRY = "CREATE TABLE " + FavoriteNewsEntry.TABLE_NAME_FAVORITE +
-            " (" + FavoriteNewsEntry.NEWS_ID + " INTEGER PRIMARY KEY, " + FavoriteNewsEntry.NEWS_IMAGE + " TEXT, " +
+            " (" + FavoriteNewsEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " + FavoriteNewsEntry.NEWS_ID + " INTEGER, " + FavoriteNewsEntry.NEWS_IMAGE + " TEXT, " +
             FavoriteNewsEntry.NEWS_TITLE + " TEXT)";
     final static String DELETE_FAVORITE_NEWS_ENTRY = "DROP TABLE IF EXISTS " + FavoriteNewsEntry.TABLE_NAME_FAVORITE;
 

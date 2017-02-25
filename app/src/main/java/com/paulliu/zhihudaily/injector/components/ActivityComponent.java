@@ -6,6 +6,7 @@ import com.paulliu.zhihudaily.ui.BaseAppCompatActivity;
 import com.paulliu.zhihudaily.ui.activity.CommentListActivity;
 import com.paulliu.zhihudaily.ui.activity.DailyNewsActivity;
 import com.paulliu.zhihudaily.ui.activity.EditorListActivity;
+import com.paulliu.zhihudaily.ui.activity.MyCollectionActivity;
 import com.paulliu.zhihudaily.ui.activity.NewsDetailActivity;
 import com.paulliu.zhihudaily.ui.activity.SplashActivity;
 import com.paulliu.zhihudaily.ui.fragment.HomeFragment;
@@ -26,6 +27,7 @@ public interface ActivityComponent {
     void inject(NewsDetailActivity activity);
     void inject(DailyNewsActivity activity);
     void inject(CommentListActivity activity);
+    void inject(MyCollectionActivity activity);
     void inject(HomeFragment fragment);
     void inject(ThemeFragment fragment);
     void inject(EditorListActivity fragment);

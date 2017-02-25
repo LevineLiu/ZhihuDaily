@@ -15,9 +15,9 @@ import com.paulliu.zhihudaily.R;
 import com.paulliu.zhihudaily.entity.NewsEntity;
 import com.paulliu.zhihudaily.listener.OnListItemClickListener;
 import com.paulliu.zhihudaily.ui.adapter.base.BaseViewHolder;
+import com.paulliu.zhihudaily.ui.adapter.base.RecyclerViewLoadMoreAdapter;
 import com.squareup.picasso.Picasso;
 
-import java.util.List;
 
 import butterknife.ButterKnife;
 
@@ -27,34 +27,19 @@ import butterknife.ButterKnife;
  * @author LLW
  */
 
-public class NewsListAdapter extends RecyclerView.Adapter{
-    private Context mContext;
-    private List<NewsEntity> mData;
-    private OnListItemClickListener mOnListItemClickListener;
+public class NewsListAdapter extends RecyclerViewLoadMoreAdapter<NewsEntity>{
 
-    public NewsListAdapter(Context context) {
-        mContext = context;
+    public NewsListAdapter(Context context, RecyclerView.LayoutManager layoutManager) {
+        super(context, layoutManager);
     }
 
-    public void setOnListItemClickListener(OnListItemClickListener listItemClickListener){
-        mOnListItemClickListener = listItemClickListener;
-    }
-
-    public void setData(List<NewsEntity> list){
-        mData = list;
-        notifyDataSetChanged();
-    }
-
-    public List<NewsEntity> getData(){
-        return mData;
-    }
     @Override
-    public ItemViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    protected RecyclerView.ViewHolder onCreateItemViewHolder(ViewGroup parent) {
         return new ItemViewHolder(LayoutInflater.from(mContext).inflate(R.layout.item_news_list, parent, false), mOnListItemClickListener);
     }
 
     @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+    protected void onBindItemViewHolder(RecyclerView.ViewHolder viewHolder, int position) {
         final NewsEntity newsEntity = mData.get(position);
         if(newsEntity.getImages() != null && newsEntity.getImages().size() != 0)
             Picasso.with(mContext)
@@ -62,21 +47,16 @@ public class NewsListAdapter extends RecyclerView.Adapter{
                     .placeholder(R.drawable.progress_animation)
                     .resizeDimen(R.dimen.home_news_image_width, R.dimen.home_news_image_height)
                     .config(Bitmap.Config.RGB_565)
-                    .into(((ItemViewHolder)holder).imageView);
-        ((ItemViewHolder)holder).titleTv.setText(newsEntity.getTitle());
+                    .into(((ItemViewHolder)viewHolder).imageView);
+        ((ItemViewHolder) viewHolder).titleTv.setText(newsEntity.getTitle());
 
         if(AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES){
-            ((ItemViewHolder) holder).cardView.setBackgroundResource(R.color.colorCardViewBackgroundDark);
-            ((ItemViewHolder) holder).titleTv.setTextColor(mContext.getResources().getColor(R.color.colorTextColorDark));
+            ((ItemViewHolder) viewHolder).cardView.setBackgroundResource(R.color.colorCardViewBackgroundDark);
+            ((ItemViewHolder) viewHolder).titleTv.setTextColor(mContext.getResources().getColor(R.color.colorTextColorDark));
         }else{
-            ((ItemViewHolder) holder).cardView.setBackgroundResource(R.color.colorCardViewBackground);
-            ((ItemViewHolder) holder).titleTv.setTextColor(mContext.getResources().getColor(R.color.colorTextColor));
+            ((ItemViewHolder) viewHolder).cardView.setBackgroundResource(R.color.colorCardViewBackground);
+            ((ItemViewHolder) viewHolder).titleTv.setTextColor(mContext.getResources().getColor(R.color.colorTextColor));
         }
-    }
-
-    @Override
-    public int getItemCount() {
-        return mData != null ? mData.size() : 0;
     }
 
     private static class ItemViewHolder extends BaseViewHolder{

@@ -17,13 +17,13 @@
         android:id="@+id/imageView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:paddingTop="@dimen/nav_header_vertical_spacing"
+        android:paddingTop="@dimen/ten_dp"
         android:src="@drawable/ic_account_circle" />
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingTop="@dimen/nav_header_vertical_spacing"
+        android:paddingTop="@dimen/ten_dp"
         android:text="Developer: LevineLiu"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
 
@@ -32,5 +32,17 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Email: 994536798@qq.com" />
+
+    <TextView
+        android:id="@+id/tv_my_collection"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/small_text"
+        android:textColor="@android:color/white"
+        android:layout_marginTop="@dimen/activity_vertical_margin"
+        android:text="@string/my_collection"
+        android:drawablePadding="@dimen/activity_horizontal_margin"
+        android:gravity="center_vertical"
+        android:drawableLeft="@drawable/ic_my_collection"/>
 
 </LinearLayout>

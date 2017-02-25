@@ -14,6 +14,7 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.paulliu.zhihudaily.R;
 import com.paulliu.zhihudaily.ZhiHuDailyApplication;
@@ -46,6 +47,7 @@ public class MainActivity extends BaseAppCompatActivity
     private int mCurrentFragmentPosition;
 
     private View mNavigationHeader;
+    private TextView mMyCollectionTv;
 
     @BindView(R.id.fab) FloatingActionButton mFab;
     @BindView(R.id.drawer_layout) DrawerLayout mDrawerLayout;
@@ -97,6 +99,13 @@ public class MainActivity extends BaseAppCompatActivity
             getSupportActionBar().setTitle(getString(R.string.ic_menu_home));
 
         mNavigationHeader = mNavigationView.getHeaderView(0);
+        mMyCollectionTv = (TextView) mNavigationHeader.findViewById(R.id.tv_my_collection);
+        mMyCollectionTv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                navigateTo(MyCollectionActivity.class);
+            }
+        });
     }
 
     @Override
