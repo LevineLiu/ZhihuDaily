@@ -14,7 +14,6 @@ import android.widget.TextView;
 import com.paulliu.zhihudaily.R;
 import com.paulliu.zhihudaily.entity.DailyNews;
 import com.paulliu.zhihudaily.entity.NewsEntity;
-import com.paulliu.zhihudaily.entity.TopNewsEntity;
 import com.paulliu.zhihudaily.listener.OnListItemClickListener;
 import com.paulliu.zhihudaily.ui.adapter.base.BaseViewHolder;
 import com.paulliu.zhihudaily.ui.adapter.base.RecyclerViewLoadMoreAdapter;
@@ -34,7 +33,7 @@ import butterknife.ButterKnife;
 
 public class HomeNewsListAdapter extends RecyclerViewLoadMoreAdapter<DailyNews> {
     private List<NewsEntity> mNewsEntityList = new ArrayList<>();
-    private List<TopNewsEntity> mTopNewsEntityList = new ArrayList<>();
+    private List<NewsEntity> mTopNewsEntityList = new ArrayList<>();
 
     public HomeNewsListAdapter(Context context, RecyclerView.LayoutManager layoutManager) {
         super(context, layoutManager);
@@ -111,7 +110,7 @@ public class HomeNewsListAdapter extends RecyclerViewLoadMoreAdapter<DailyNews> 
         return mNewsEntityList.size() != 0 ? mNewsEntityList.size() + 1 : 0;
     }
 
-    public void setStories(List<NewsEntity> storyList, List<TopNewsEntity> topStoryList) {
+    public void setStories(List<NewsEntity> storyList, List<NewsEntity> topStoryList) {
         mNewsEntityList = storyList;
         if (topStoryList != null && topStoryList.size() != 0)
             mTopNewsEntityList = topStoryList;
@@ -131,7 +130,7 @@ public class HomeNewsListAdapter extends RecyclerViewLoadMoreAdapter<DailyNews> 
         return mTopNewsEntityList.size();
     }
 
-    public List<TopNewsEntity> getTopNewsEntityList(){
+    public List<NewsEntity> getTopNewsEntityList(){
         return mTopNewsEntityList;
     }
 

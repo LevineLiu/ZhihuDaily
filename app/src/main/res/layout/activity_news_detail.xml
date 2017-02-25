@@ -90,6 +90,15 @@
                     android:layout_gravity="right"
                     android:layout_marginRight="@dimen/activity_vertical_margin"
                     android:drawableLeft="@drawable/ic_comment"/>
+
+                <TextView
+                    android:id="@+id/tv_news_collect"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:layout_gravity="right"
+                    android:layout_marginRight="@dimen/activity_vertical_margin"
+                    android:drawableLeft="@drawable/ic_uncollected"/>
                 <TextView
                     android:id="@+id/tv_news_share"
                     android:layout_width="wrap_content"

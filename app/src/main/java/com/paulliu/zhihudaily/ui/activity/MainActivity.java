@@ -272,12 +272,11 @@ public class MainActivity extends BaseAppCompatActivity
             if(Build.VERSION.SDK_INT >= 21)
                 getWindow().setStatusBarColor(getResources().getColor(R.color.colorPrimaryDark));
         }
+
         Map<Integer, Fragment> fragmentMap = mFragmentSwitcher.getFragmentMap();
-        Set<Integer> set = fragmentMap.keySet();
-        Iterator<Integer> iterator = set.iterator();
-        while (iterator.hasNext()){
-            Fragment fragment = mFragmentSwitcher.getFragment(iterator.next());
-            ((BaseFragment) fragment).setDayNightMode();
+        Set<Map.Entry<Integer, Fragment>> set = fragmentMap.entrySet();
+        for(Map.Entry<Integer, Fragment> map : set){
+            ((BaseFragment) map.getValue()).setDayNightMode();
         }
     }
 

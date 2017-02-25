@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 
 import com.paulliu.zhihudaily.ZhiHuDailyApplication;
+import com.paulliu.zhihudaily.db.ZhihuDailyDbManager;
 
 import javax.inject.Singleton;
 
@@ -35,5 +36,11 @@ public class AppModule {
     @Provides
     public SharedPreferences provideSharedPreferences(){
         return mApplication.getSharedPreferences(SHARED_PREFERENCE_NAME, Context.MODE_PRIVATE);
+    }
+
+    @Singleton
+    @Provides
+    public ZhihuDailyDbManager provideDbManager(){
+        return new ZhihuDailyDbManager(mApplication);
     }
 }
