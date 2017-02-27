@@ -53,6 +53,7 @@ public class MyCollectionActivity extends BaseAppCompatActivity implements OnLis
         setDisplayHomeAsUp(getString(R.string.my_collection));
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         mAdapter = new NewsListAdapter(this, layoutManager);
+        mAdapter.setHasStableIds(true);
         mAdapter.setOnLoadMoreListener(this);
         mAdapter.setOnListItemClickListener(this);
         mRecyclerView.setLayoutManager(layoutManager);

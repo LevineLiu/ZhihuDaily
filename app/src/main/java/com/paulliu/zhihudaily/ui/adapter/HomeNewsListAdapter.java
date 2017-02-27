@@ -63,21 +63,22 @@ public class HomeNewsListAdapter extends RecyclerViewLoadMoreAdapter<DailyNews> 
                 break;
             case TYPE_ITEM:
                 final NewsEntity newsEntity = mNewsEntityList.get(position - 1);
-                if(newsEntity.getImages() != null && newsEntity.getImages().size() != 0)
+                String tag = (String) ((ItemViewHolder) viewHolder).imageView.getTag();
+                if(newsEntity.getImages() != null && newsEntity.getImages().size() != 0 &&
+                        !newsEntity.getImages().get(0).equals(tag)){
                     Picasso .with(mContext)
                             .load(newsEntity.getImages().get(0))
                             .placeholder(R.drawable.progress_animation)
                             .resizeDimen(R.dimen.home_news_image_width, R.dimen.home_news_image_height)
                             .config(Bitmap.Config.RGB_565)
                             .into(((ItemViewHolder) viewHolder).imageView);
+                    ((ItemViewHolder) viewHolder).imageView.setTag(newsEntity.getImages().get(0));
+                }else if(newsEntity.getImages() == null){
+                    ((ItemViewHolder) viewHolder).imageView.setImageBitmap(null);
+                }
+
                 ((ItemViewHolder) viewHolder).titleTv.setText(newsEntity.getTitle());
-//                ((ItemViewHolder) viewHolder).cardView.setOnClickListener(new View.OnClickListener() {
-//                    @Override
-//                    public void onClick(View v) {
-//                        if(mOnListItemClickListener != null)
-//                            mOnListItemClickListener.onItemClick(newsEntity);
-//                    }
-//                });
+
                 if(AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES){
                     ((ItemViewHolder) viewHolder).cardView.setBackgroundResource(R.color.colorCardViewBackgroundDark);
                     ((ItemViewHolder) viewHolder).titleTv.setTextColor(mContext.getResources().getColor(R.color.colorTextColorDark));
@@ -87,6 +88,11 @@ public class HomeNewsListAdapter extends RecyclerViewLoadMoreAdapter<DailyNews> 
                 }
                 break;
         }
+    }
+
+    @Override
+    public long getItemId(int position) {
+        return position;
     }
 
     @Override

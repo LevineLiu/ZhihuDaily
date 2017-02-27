@@ -41,13 +41,19 @@ public class NewsListAdapter extends RecyclerViewLoadMoreAdapter<NewsEntity>{
     @Override
     protected void onBindItemViewHolder(RecyclerView.ViewHolder viewHolder, int position) {
         final NewsEntity newsEntity = mData.get(position);
-        if(newsEntity.getImages() != null && newsEntity.getImages().size() != 0)
+        String tag = (String) ((ItemViewHolder) viewHolder).imageView.getTag();
+        if(newsEntity.getImages() != null && newsEntity.getImages().size() != 0 &&
+                !newsEntity.getImages().get(0).equals(tag)){
             Picasso.with(mContext)
                     .load(newsEntity.getImages().get(0))
                     .placeholder(R.drawable.progress_animation)
                     .resizeDimen(R.dimen.home_news_image_width, R.dimen.home_news_image_height)
                     .config(Bitmap.Config.RGB_565)
                     .into(((ItemViewHolder)viewHolder).imageView);
+            ((ItemViewHolder) viewHolder).imageView.setTag(tag);
+        }else if(newsEntity.getImages() == null){
+            ((ItemViewHolder) viewHolder).imageView.setImageBitmap(null);
+        }
         ((ItemViewHolder) viewHolder).titleTv.setText(newsEntity.getTitle());
 
         if(AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES){
@@ -57,6 +63,11 @@ public class NewsListAdapter extends RecyclerViewLoadMoreAdapter<NewsEntity>{
             ((ItemViewHolder) viewHolder).cardView.setBackgroundResource(R.color.colorCardViewBackground);
             ((ItemViewHolder) viewHolder).titleTv.setTextColor(mContext.getResources().getColor(R.color.colorTextColor));
         }
+    }
+
+    @Override
+    public long getItemId(int position) {
+        return position;
     }
 
     private static class ItemViewHolder extends BaseViewHolder{

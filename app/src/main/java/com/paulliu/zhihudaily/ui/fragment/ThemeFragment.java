@@ -143,6 +143,7 @@ public class ThemeFragment extends BaseFragment implements SwipeRefreshLayout.On
         };
         mRecyclerView.setLayoutManager(layoutManager);
         mRecyclerView.addOnScrollListener(mAdapter.getOnScrollListener());
+        mAdapter.setHasStableIds(true);
         mAdapter.setOnLoadMoreListener(this);
         mAdapter.setOnListItemClickListener(this);
         mRecyclerView.setAdapter(mAdapter);
