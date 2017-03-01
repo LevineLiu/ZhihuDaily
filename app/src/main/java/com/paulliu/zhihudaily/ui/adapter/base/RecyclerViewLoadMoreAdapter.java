@@ -112,7 +112,7 @@ public abstract class RecyclerViewLoadMoreAdapter<T> extends RecyclerView.Adapte
     public void remove(int position){
         if(mData != null && position < mData.size()){
             mData.remove(position);
-            notifyDataSetChanged();
+            notifyItemRemoved(position);
         }
     }
 

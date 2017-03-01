@@ -243,7 +243,8 @@ public abstract class BaseFragment extends Fragment {
                 childView.setBackgroundResource(background.resourceId);
         }
 
-        //让 RecyclerView 缓存在 Pool 中的 Item 失效
+        //清空RecyclerView 缓存的Item，即清空Recycler里的mAttachedScrap(屏幕里的缓存)、
+        // mCachedViews(屏幕外的缓存)以及RecycledViewPool的缓存
         //那么，如果是ListView，要怎么做呢？这里的思路是通过反射拿到 AbsListView 类中的 RecycleBin 对象，然后同样再用反射去调用 clear 方法
         Class<RecyclerView> recyclerViewClass = RecyclerView.class;
         try {
