@@ -6,7 +6,6 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatDelegate;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
-import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -14,16 +13,12 @@ import android.widget.TextView;
 import com.paulliu.zhihudaily.R;
 import com.paulliu.zhihudaily.entity.DailyNews;
 import com.paulliu.zhihudaily.entity.NewsEntity;
-import com.paulliu.zhihudaily.listener.OnListItemClickListener;
-import com.paulliu.zhihudaily.ui.adapter.base.BaseViewHolder;
-import com.paulliu.zhihudaily.ui.adapter.base.RecyclerViewLoadMoreAdapter;
+import com.paulliu.zhihudaily.ui.adapter.base.BaseRecyclerViewLoadMoreAdapter;
 import com.paulliu.zhihudaily.widget.DotsIndexer;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import butterknife.ButterKnife;
 
 /**
  * Created on 2017/1/17
@@ -31,7 +26,7 @@ import butterknife.ButterKnife;
  * @author LLW
  */
 
-public class HomeNewsListAdapter extends RecyclerViewLoadMoreAdapter<DailyNews> {
+public class HomeNewsListAdapter extends BaseRecyclerViewLoadMoreAdapter<DailyNews> {
     private List<NewsEntity> mNewsEntityList = new ArrayList<>();
     private List<NewsEntity> mTopNewsEntityList = new ArrayList<>();
 
@@ -40,10 +35,55 @@ public class HomeNewsListAdapter extends RecyclerViewLoadMoreAdapter<DailyNews> 
     }
 
     @Override
-    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        if (viewType == TYPE_HEADER) {
-            HeaderViewHolder headerViewHolder = new HeaderViewHolder(mInflater.inflate(R.layout.fragment_home_header, parent, false));
-            initViewPager(headerViewHolder.viewPager, headerViewHolder.dotsIndexer);
+    public int getLayoutId() {
+        return R.layout.item_news_list;
+    }
+
+    @Override
+    public int getHeaderLayoutId() {
+        return R.layout.fragment_home_header;
+    }
+
+    @Override
+    protected void onBindItemViewHolder(VH viewHolder, int position) {
+        CardView cardView = viewHolder.getView(R.id.card_view_item_news);
+        TextView titleTv = viewHolder.getView(R.id.tv_item_news_title);
+        ImageView imageView = viewHolder.getView(R.id.iv_item_news);
+
+        final NewsEntity newsEntity = mNewsEntityList.get(position - 1);
+        String tag = (String) imageView.getTag();
+        if(newsEntity.getImages() != null && newsEntity.getImages().size() != 0 &&
+                !newsEntity.getImages().get(0).equals(tag)){
+            Picasso .with(mContext)
+                    .load(newsEntity.getImages().get(0))
+                    .placeholder(R.drawable.progress_animation)
+                    .resizeDimen(R.dimen.home_news_image_width, R.dimen.home_news_image_height)
+                    .config(Bitmap.Config.RGB_565)
+                    .into(imageView);
+            imageView.setTag(newsEntity.getImages().get(0));
+        }else if(newsEntity.getImages() == null){
+            imageView.setImageBitmap(null);
+        }
+
+        titleTv.setText(newsEntity.getTitle());
+
+        if(AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES){
+            cardView.setBackgroundResource(R.color.colorCardViewBackgroundDark);
+            titleTv.setTextColor(mContext.getResources().getColor(R.color.colorTextColorDark));
+        }else{
+            cardView.setBackgroundResource(R.color.colorCardViewBackground);
+            titleTv.setTextColor(mContext.getResources().getColor(R.color.colorTextColor));
+        }
+    }
+
+
+    @Override
+    public VH onCreateViewHolder(ViewGroup parent, int viewType) {
+        if (viewType == ItemType.HEADER.ordinal()) {
+            VH headerViewHolder = VH.getViewHolder(parent, R.layout.fragment_home_header);
+            ViewPager viewPager = headerViewHolder.getView(R.id.vp_home_header);
+            DotsIndexer dotsIndexer = headerViewHolder.getView(R.id.dots_indexer_home_header);
+            initViewPager(viewPager, dotsIndexer);
             return headerViewHolder;
         }
         else
@@ -51,57 +91,10 @@ public class HomeNewsListAdapter extends RecyclerViewLoadMoreAdapter<DailyNews> 
     }
 
     @Override
-    protected RecyclerView.ViewHolder onCreateItemViewHolder(ViewGroup parent) {
-        return new ItemViewHolder(mInflater.inflate(R.layout.item_news_list, parent, false), mOnListItemClickListener);
-    }
-
-    @Override
-    protected void onBindItemViewHolder(RecyclerView.ViewHolder viewHolder, int position) {
-        switch (getItemViewType(position)) {
-            case TYPE_HEADER:
-
-                break;
-            case TYPE_ITEM:
-                final NewsEntity newsEntity = mNewsEntityList.get(position - 1);
-                String tag = (String) ((ItemViewHolder) viewHolder).imageView.getTag();
-                if(newsEntity.getImages() != null && newsEntity.getImages().size() != 0 &&
-                        !newsEntity.getImages().get(0).equals(tag)){
-                    Picasso .with(mContext)
-                            .load(newsEntity.getImages().get(0))
-                            .placeholder(R.drawable.progress_animation)
-                            .resizeDimen(R.dimen.home_news_image_width, R.dimen.home_news_image_height)
-                            .config(Bitmap.Config.RGB_565)
-                            .into(((ItemViewHolder) viewHolder).imageView);
-                    ((ItemViewHolder) viewHolder).imageView.setTag(newsEntity.getImages().get(0));
-                }else if(newsEntity.getImages() == null){
-                    ((ItemViewHolder) viewHolder).imageView.setImageBitmap(null);
-                }
-
-                ((ItemViewHolder) viewHolder).titleTv.setText(newsEntity.getTitle());
-
-                if(AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES){
-                    ((ItemViewHolder) viewHolder).cardView.setBackgroundResource(R.color.colorCardViewBackgroundDark);
-                    ((ItemViewHolder) viewHolder).titleTv.setTextColor(mContext.getResources().getColor(R.color.colorTextColorDark));
-                }else{
-                    ((ItemViewHolder) viewHolder).cardView.setBackgroundResource(R.color.colorCardViewBackground);
-                    ((ItemViewHolder) viewHolder).titleTv.setTextColor(mContext.getResources().getColor(R.color.colorTextColor));
-                }
-                break;
-        }
-    }
-
-    @Override
     public long getItemId(int position) {
         return position;
     }
 
-    @Override
-    public int getItemViewType(int position) {
-        if (position == 0)
-            return TYPE_HEADER;
-        else
-            return super.getItemViewType(position);
-    }
 
     @Override
     public int getItemCount() {
@@ -141,35 +134,5 @@ public class HomeNewsListAdapter extends RecyclerViewLoadMoreAdapter<DailyNews> 
     }
 
     public void initViewPager(ViewPager viewPager, DotsIndexer dotsIndexer){}
-
-    private static class HeaderViewHolder extends RecyclerView.ViewHolder {
-        ViewPager viewPager;
-        DotsIndexer dotsIndexer;
-
-        public HeaderViewHolder(View v) {
-            super(v);
-            viewPager = ButterKnife.findById(v, R.id.vp_home_header);
-            dotsIndexer = ButterKnife.findById(v, R.id.dots_indexer_home_header);
-        }
-    }
-
-    private static class ItemViewHolder extends BaseViewHolder{
-        CardView cardView;
-        TextView titleTv;
-        ImageView imageView;
-
-        public ItemViewHolder(View v, final OnListItemClickListener listener) {
-            super(v);
-            cardView = ButterKnife.findById(v, R.id.card_view_item_news);
-            titleTv = ButterKnife.findById(v, R.id.tv_item_news_title);
-            imageView = ButterKnife.findById(v, R.id.iv_item_news);
-            v.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    listener.onItemClick(getLayoutPosition() - 1);
-                }
-            });
-        }
-    }
 
 }

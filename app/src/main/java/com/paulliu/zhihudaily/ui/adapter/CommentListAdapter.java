@@ -10,10 +10,9 @@ import android.widget.TextView;
 
 import com.paulliu.zhihudaily.R;
 import com.paulliu.zhihudaily.entity.CommentEntity;
-import com.paulliu.zhihudaily.ui.adapter.base.RecyclerViewLoadMoreAdapter;
+import com.paulliu.zhihudaily.ui.adapter.base.BaseRecyclerViewLoadMoreAdapter;
+import com.paulliu.zhihudaily.widget.CircleTransform;
 import com.squareup.picasso.Picasso;
-
-import butterknife.ButterKnife;
 
 /**
  * Created on 2017/2/10
@@ -21,9 +20,9 @@ import butterknife.ButterKnife;
  * @author LLW
  */
 
-public class CommentListAdapter extends RecyclerViewLoadMoreAdapter<CommentEntity> {
-    private static final int HEADER_LONG_COMMENT = 0;
-    private static final int HEADER_SHORT_COMMENT = 1;
+public class CommentListAdapter extends BaseRecyclerViewLoadMoreAdapter<CommentEntity> {
+    private static final int HEADER_LONG_COMMENT = 0x100;
+    private static final int HEADER_SHORT_COMMENT = 0x200;
     private int mLongCommentCount, mShortCommentCount, mShortCommentHeaderPosition;
     private boolean mIsExpanded;//短评是否展开
 
@@ -46,6 +45,11 @@ public class CommentListAdapter extends RecyclerViewLoadMoreAdapter<CommentEntit
 
 
     @Override
+    public int getLayoutId() {
+        return R.layout.item_comment_list;
+    }
+
+    @Override
     public int getItemViewType(int position) {
         if(position == 0)
             return HEADER_LONG_COMMENT;
@@ -55,39 +59,26 @@ public class CommentListAdapter extends RecyclerViewLoadMoreAdapter<CommentEntit
             return super.getItemViewType(position);
     }
 
-//    @Override
-//    public int getActualItemCount() {
-//        return mData != null ? mData.size() + 2 : 0;
-//    }
-//
-//    @Override
-//    public int getItemCount() {
-//        return mData != null ? mData.size() + 3 :0;
-//    }
 
     @Override
-    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public VH onCreateViewHolder(ViewGroup parent, int viewType) {
         if(viewType == HEADER_LONG_COMMENT || viewType == HEADER_SHORT_COMMENT)
-            return new HeaderViewHolder(mInflater.inflate(R.layout.item_comment_header, parent, false));
+            return VH.getViewHolder(parent, R.layout.item_comment_header);
         else
             return super.onCreateViewHolder(parent, viewType);
     }
 
     @Override
-    protected RecyclerView.ViewHolder onCreateItemViewHolder(ViewGroup parent) {
-        return new ItemViewHolder(mInflater.inflate(R.layout.item_comment_list, parent, false));
-    }
-
-    @Override
-    protected void onBindItemViewHolder(RecyclerView.ViewHolder viewHolder, int position) {
+    protected void onBindItemViewHolder(VH viewHolder, int position) {
         switch (getItemViewType(position)){
             case HEADER_LONG_COMMENT:
-                ((HeaderViewHolder) viewHolder).titleTv.setText(TextUtils.concat(String.valueOf(mLongCommentCount), "条长评"));
-
+                TextView titleTv = viewHolder.getView(R.id.tv_comment_header);
+                titleTv.setText(TextUtils.concat(String.valueOf(mLongCommentCount), "条长评"));
                 break;
             case HEADER_SHORT_COMMENT:
-                ((HeaderViewHolder) viewHolder).titleTv.setText(TextUtils.concat(String.valueOf(mShortCommentCount), "条短评"));
-                ((HeaderViewHolder) viewHolder).titleTv.setOnClickListener(new View.OnClickListener() {
+                TextView shortCommentTitleTv = viewHolder.getView(R.id.tv_comment_header);
+                shortCommentTitleTv.setText(TextUtils.concat(String.valueOf(mShortCommentCount), "条短评"));
+                shortCommentTitleTv.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         if(mIsExpanded){
@@ -101,52 +92,32 @@ public class CommentListAdapter extends RecyclerViewLoadMoreAdapter<CommentEntit
                     }
                 });
                 if(mShortCommentCount == 0)
-                    ((HeaderViewHolder) viewHolder).titleTv.setEnabled(false);
+                    shortCommentTitleTv.setEnabled(false);
                 else
-                    ((HeaderViewHolder) viewHolder).titleTv.setEnabled(true);
+                    shortCommentTitleTv.setEnabled(true);
                 if(getActualItemCount()-1 == position)
-                    ((HeaderViewHolder) viewHolder).titleTv.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.icon_down_arrow, 0);
+                    shortCommentTitleTv.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.icon_down_arrow, 0);
                 else
-                    ((HeaderViewHolder) viewHolder).titleTv.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.icon_up_arrow, 0);
+                    shortCommentTitleTv.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.icon_up_arrow, 0);
                 break;
-            case TYPE_ITEM:
+            default:
+                ImageView userAvatarIv = viewHolder.getView(R.id.iv_user_avatar);
+                TextView userNameTv = viewHolder.getView(R.id.tv_user_name);
+                TextView commentContentTv = viewHolder.getView(R.id.tv_comment_content);
+                TextView likeCountTv = viewHolder.getView(R.id.tv_like_count);
                 CommentEntity commentEntity = mData.get(position);
                 if(!TextUtils.isEmpty(commentEntity.getAvatar()))
                     Picasso.with(mContext)
-                           .load(commentEntity.getAvatar())
-//                           .transform(new CircleTransform())
-                           .into(((ItemViewHolder) viewHolder).userAvatarIv);
-                ((ItemViewHolder) viewHolder).userNameTv.setText(commentEntity.getAuthor());
-                ((ItemViewHolder) viewHolder).commentContentTv.setText(commentEntity.getContent());
-                ((ItemViewHolder) viewHolder).likeCountTv.setText(String.valueOf(commentEntity.getLikes()));
+                            .load(commentEntity.getAvatar())
+                            .transform(new CircleTransform())
+                            .into(userAvatarIv);
+                userNameTv.setText(commentEntity.getAuthor());
+                commentContentTv.setText(commentEntity.getContent());
+                likeCountTv.setText(String.valueOf(commentEntity.getLikes()));
                 break;
         }
     }
 
     public void loadShortComments(){}
     public void foldShortComments(){}
-
-    private static class HeaderViewHolder extends RecyclerView.ViewHolder{
-        private TextView titleTv;
-
-        public HeaderViewHolder(View view){
-            super(view);
-            titleTv = ButterKnife.findById(view, R.id.tv_comment_header);
-        }
-    }
-
-    private static class ItemViewHolder extends RecyclerView.ViewHolder{
-        private ImageView userAvatarIv;
-        private TextView userNameTv;
-        private TextView commentContentTv;
-        private TextView likeCountTv;
-
-        public ItemViewHolder(View view){
-            super(view);
-            userAvatarIv = ButterKnife.findById(view, R.id.iv_user_avatar);
-            userNameTv = ButterKnife.findById(view, R.id.tv_user_name);
-            commentContentTv = ButterKnife.findById(view, R.id.tv_comment_content);
-            likeCountTv = ButterKnife.findById(view, R.id.tv_like_count);
-        }
-    }
 }
