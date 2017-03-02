@@ -105,17 +105,26 @@ public class CommentListAdapter extends BaseRecyclerViewLoadMoreAdapter<CommentE
                 TextView userNameTv = viewHolder.getView(R.id.tv_user_name);
                 TextView commentContentTv = viewHolder.getView(R.id.tv_comment_content);
                 TextView likeCountTv = viewHolder.getView(R.id.tv_like_count);
+
                 CommentEntity commentEntity = mData.get(position);
-                if(!TextUtils.isEmpty(commentEntity.getAvatar()))
+                String tag = (String) userAvatarIv.getTag();
+                if(!TextUtils.isEmpty(commentEntity.getAvatar()) && !commentEntity.getAvatar().equals(tag)){
                     Picasso.with(mContext)
                             .load(commentEntity.getAvatar())
                             .transform(new CircleTransform())
                             .into(userAvatarIv);
+                    userAvatarIv.setTag(commentEntity.getAvatar());
+                }
                 userNameTv.setText(commentEntity.getAuthor());
                 commentContentTv.setText(commentEntity.getContent());
                 likeCountTv.setText(String.valueOf(commentEntity.getLikes()));
                 break;
         }
+    }
+
+    @Override
+    public long getItemId(int position) {
+        return position;
     }
 
     public void loadShortComments(){}

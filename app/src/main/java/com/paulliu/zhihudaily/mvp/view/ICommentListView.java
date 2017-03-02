@@ -14,4 +14,8 @@ public interface ICommentListView extends IView<CommentListEntity>{
     void getLongCommentsFailure();
     void getShortCommentsSuccess(CommentListEntity result);
     void getShortCommentsFailure();
+    void getBeforeLongCommentsSuccess(CommentListEntity result);
+    void getBeforeLongCommentsFailure();
+    void getBeforeShortCommentsSuccess(CommentListEntity result);
+    void getBeforeShortCommentsFailure();
 }

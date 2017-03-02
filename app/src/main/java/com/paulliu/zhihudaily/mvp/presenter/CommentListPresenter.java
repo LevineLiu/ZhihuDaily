@@ -79,4 +79,56 @@ public class CommentListPresenter extends CommonPresenter<CommentListEntity>{
             }
         });
     }
+
+    public void getBeforeLongComments(int storyId, int commentId){
+        mInteractor.createBeforeLongCommentObservable(storyId, commentId).subscribe(new Observer<CommentListEntity>() {
+            @Override
+            public void onSubscribe(Disposable d) {
+                mDisposable = d;
+            }
+
+            @Override
+            public void onNext(CommentListEntity commentListEntity) {
+                if(mView != null)
+                    ((ICommentListView) mView).getBeforeLongCommentsSuccess(commentListEntity);
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                if(mView != null)
+                    ((ICommentListView) mView).getBeforeLongCommentsFailure();
+            }
+
+            @Override
+            public void onComplete() {
+
+            }
+        });
+    }
+
+    public void getBeforeShortComments(int stroyId, int commentId){
+        mInteractor.createBeforeShortCommentObservable(stroyId, commentId).subscribe(new Observer<CommentListEntity>() {
+            @Override
+            public void onSubscribe(Disposable d) {
+                mDisposable = d;
+            }
+
+            @Override
+            public void onNext(CommentListEntity commentListEntity) {
+                if(mView != null)
+                    ((ICommentListView) mView).getBeforeShortCommentsSuccess(commentListEntity);
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                if(mView != null)
+                    ((ICommentListView) mView).getBeforeShortCommentsFailure();
+            }
+
+            @Override
+            public void onComplete() {
+
+            }
+        });
+    }
 }

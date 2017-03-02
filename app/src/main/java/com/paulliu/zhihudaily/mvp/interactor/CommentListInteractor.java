@@ -29,8 +29,20 @@ public class CommentListInteractor {
             .observeOn(AndroidSchedulers.mainThread());
     }
 
+    public Observable<CommentListEntity> createBeforeLongCommentObservable(int storyId, int commentId){
+        return mApi.getBeforeLongComments(storyId, commentId)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread());
+    }
+
     public Observable<CommentListEntity> createShortCommentObservable(int id){
         return mApi.getShortComments(id)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread());
+    }
+
+    public Observable<CommentListEntity> createBeforeShortCommentObservable(int storyId, int commentId){
+        return  mApi.getBeforeShortComments(storyId, commentId)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread());
     }
