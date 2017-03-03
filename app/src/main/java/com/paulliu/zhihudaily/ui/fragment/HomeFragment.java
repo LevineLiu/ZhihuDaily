@@ -24,6 +24,7 @@ import com.paulliu.zhihudaily.ui.adapter.HomeNewsListAdapter;
 import com.paulliu.zhihudaily.widget.DotsIndexer;
 import com.paulliu.zhihudaily.widget.SpeedyLinearLayoutManager;
 
+import java.lang.ref.WeakReference;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
@@ -159,6 +160,11 @@ public class HomeFragment extends BaseFragment implements SwipeRefreshLayout.OnR
         }, Constants.DELAY_TIME);
     }
 
+    @Override
+    public void handleHandlerMessage(Message msg) {
+        super.handleHandlerMessage(msg);
+    }
+
     private void initBanner(final ViewPager viewPager, final DotsIndexer dotsIndexer) {
         mSlidesCount = mAdapter.getTopStoriesCount();
         HomeBannerPagerAdapter adapter = new HomeBannerPagerAdapter(mContext) {
@@ -192,13 +198,7 @@ public class HomeFragment extends BaseFragment implements SwipeRefreshLayout.OnR
             }
         });
 
-        final Handler handler = new Handler() {
-            @Override
-            public void handleMessage(Message msg) {
-                viewPager.setCurrentItem(mCurrentSlidePosition);
-            }
-        };
-
+        final SlideShowHandler handler = new SlideShowHandler(viewPager);
         viewPager.postDelayed(new Runnable() {
             @Override
             public void run() {
@@ -208,6 +208,7 @@ public class HomeFragment extends BaseFragment implements SwipeRefreshLayout.OnR
                         public void run() {
                             if (mSlidesCount != 0) {
                                 mCurrentSlidePosition = (mCurrentSlidePosition + 1) % mSlidesCount;
+                                handler.setPosition(mCurrentSlidePosition);
                                 handler.obtainMessage().sendToTarget();
                             }
                         }
@@ -215,6 +216,25 @@ public class HomeFragment extends BaseFragment implements SwipeRefreshLayout.OnR
                 }
             }
         }, SCHEDULED_FIXED_RATE * 1000);
+    }
+
+    private static class SlideShowHandler extends Handler{
+        private WeakReference<ViewPager> mWeakReference;
+        private int mPosition;
+        public SlideShowHandler(ViewPager viewPager){
+            mWeakReference = new WeakReference<ViewPager>(viewPager);
+        }
+
+        public void setPosition(int position){
+            mPosition = position;
+        }
+
+        @Override
+        public void handleMessage(Message msg) {
+            ViewPager viewPager = mWeakReference.get();
+            if(viewPager != null)
+                viewPager.setCurrentItem(mPosition);
+        }
     }
 
     /**

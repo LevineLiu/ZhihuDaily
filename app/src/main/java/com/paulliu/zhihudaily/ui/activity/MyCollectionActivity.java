@@ -2,6 +2,7 @@ package com.paulliu.zhihudaily.ui.activity;
 
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.app.AppCompatDelegate;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
@@ -61,6 +62,11 @@ public class MyCollectionActivity extends BaseAppCompatActivity implements OnLis
         mRecyclerView.setAdapter(mAdapter);
         mRefreshLayout.setOnRefreshListener(this);
         mRefreshLayout.setColorSchemeColors(getResources().getColor(R.color.colorPrimary));
+
+        if(AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES)
+            mRefreshLayout.setColorSchemeColors(getResources().getColor(R.color.colorPrimaryNightMode));
+        else
+            mRefreshLayout.setColorSchemeColors(getResources().getColor(R.color.colorPrimary));
 
         mRefreshLayout.postDelayed(new Runnable() {
             @Override
