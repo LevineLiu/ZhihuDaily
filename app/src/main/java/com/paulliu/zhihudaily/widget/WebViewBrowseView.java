@@ -146,15 +146,15 @@ public class WebViewBrowseView extends LinearLayout implements View.OnClickListe
     }
 
     public void loadHtmlWithUrl(String url) {
-        mWebView.loadData(url, "text/html; charset=UTF-8", "utf-8");
+        mWebView.loadDataWithBaseURL(url, null, "text/html; charset=UTF-8", "utf-8", null);
     }
 
     public void loadHtmlWithData(String body){
-        mWebView.loadData(getHtmlData(body), "text/html; charset=UTF-8", "utf-8");
+        mWebView.loadDataWithBaseURL(null, getHtmlData(body), "text/html; charset=UTF-8", "utf-8", null);
     }
 
     public void loadHtmlWithData(String css, String body){
-        mWebView.loadData(getHtmlDataWithCss(css, body), "text/html; charset=UTF-8", "utf-8");
+        mWebView.loadDataWithBaseURL(null, getHtmlDataWithCss(css, body), "text/html; charset=UTF-8", "utf-8", null);
     }
 
     /**
@@ -168,7 +168,7 @@ public class WebViewBrowseView extends LinearLayout implements View.OnClickListe
      * load html of night mode
      */
     public void loadNightModeHtml(String css, String body){
-        mWebView.loadData(getNightModeHtmlWithCss(css, body), "text/html; charset=UTF-8", "utf-8");
+        mWebView.loadDataWithBaseURL(null, getNightModeHtmlWithCss(css, body), "text/html; charset=UTF-8", "utf-8", null);
     }
 
     private String getHtmlData(String bodyHTML) {
