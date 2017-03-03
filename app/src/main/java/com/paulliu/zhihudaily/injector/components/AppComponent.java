@@ -11,6 +11,8 @@ import com.paulliu.zhihudaily.injector.modules.ZhiHuApiModule;
 import javax.inject.Singleton;
 
 import dagger.Component;
+import okhttp3.Interceptor;
+import okhttp3.OkHttpClient;
 
 /**
  * Created on 2017/1/10
@@ -20,8 +22,11 @@ import dagger.Component;
 @Singleton
 @Component(modules = {AppModule.class, ZhiHuApiModule.class})
 public interface AppComponent {
-    ZhiHuDailyApplication getApplication();
+    Interceptor getCachedInterceptor();
+    OkHttpClient getOkHttpClient();
     ZhiHuDailyApi getZhiHuAPi();
+    ZhiHuDailyApplication getApplication();
     SharedPreferences getSharedPreferences();
     ZhihuDailyDbManager getDbManager();
+
 }
