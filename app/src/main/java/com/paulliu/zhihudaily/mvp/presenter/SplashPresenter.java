@@ -29,7 +29,7 @@ public class SplashPresenter extends CommonPresenter<SplashImage> {
 
     @Override
     public void initialize() {
-        //该api已无效
+        //该api不稳定，经常获取失败
         mInteractor.createObservable()
                 .subscribe(new Observer<SplashImage>() {
                     @Override
@@ -45,7 +45,8 @@ public class SplashPresenter extends CommonPresenter<SplashImage> {
 
                     @Override
                     public void onError(Throwable e) {
-
+                        if(mView != null)
+                            ((ICommonView<SplashImage>) mView).onFailure();
                     }
 
                     @Override

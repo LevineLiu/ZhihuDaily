@@ -9,5 +9,5 @@ package com.paulliu.zhihudaily.mvp;
 
 public interface ICommonView<T> extends IView<T>{
     void onSuccess(T result);
-    void onFailure(T result);
+    void onFailure();
 }

@@ -5,7 +5,6 @@ import android.animation.AnimatorListenerAdapter;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.os.Bundle;
-import android.os.Message;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageView;
@@ -17,6 +16,7 @@ import com.paulliu.zhihudaily.entity.SplashImage;
 import com.paulliu.zhihudaily.mvp.ICommonView;
 import com.paulliu.zhihudaily.mvp.presenter.SplashPresenter;
 import com.paulliu.zhihudaily.ui.BaseAppCompatActivity;
+import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
 import javax.inject.Inject;
@@ -30,7 +30,6 @@ import butterknife.BindView;
  */
 
 public class SplashActivity extends BaseAppCompatActivity implements ICommonView<SplashImage>{
-    private final static int HANDLER_WHAT = 0;
     private final static int SPLASH_TIME = 4000;
 
     @BindView(R.id.iv_splash) ImageView mImageView;
@@ -58,8 +57,7 @@ public class SplashActivity extends BaseAppCompatActivity implements ICommonView
     @Override
     protected void initView() {
         getActivityComponent().inject(this);
-        loadAnimation();
-        //((Handler)getHandlerInstance()).sendEmptyMessageDelayed(HANDLER_WHAT, SPLASH_TIME);
+        initPresenter();
     }
 
     @Override
@@ -77,18 +75,24 @@ public class SplashActivity extends BaseAppCompatActivity implements ICommonView
 
     @Override
     public void onSuccess(SplashImage result) {
-        Picasso.with(this).load(result.getImg()).into(mImageView);
+        Picasso.with(this).load(result.getImg()).into(mImageView, new Callback() {
+            @Override
+            public void onSuccess() {
+                loadAnimation();
+            }
+
+            @Override
+            public void onError() {
+                mImageView.setBackgroundResource(mPresenter.getBackgroundResId());
+                loadAnimation();
+            }
+        });
     }
 
     @Override
-    public void onFailure(SplashImage result) {
-
-    }
-
-    @Override
-    public void handleHandlerMessage(Message msg) {
-        navigateTo(MainActivity.class);
-        finish();
+    public void onFailure() {
+        mImageView.setBackgroundResource(mPresenter.getBackgroundResId());
+        loadAnimation();
     }
 
     private void initPresenter(){
@@ -102,7 +106,6 @@ public class SplashActivity extends BaseAppCompatActivity implements ICommonView
     }
 
     private void loadAnimation(){
-        mImageView.setBackgroundResource(mPresenter.getBackgroundResId());
         ObjectAnimator animator1 = ObjectAnimator.ofFloat(mImageView, "scaleX", 1f, 1.2f);
         ObjectAnimator animator2 = ObjectAnimator.ofFloat(mImageView, "scaleY", 1f, 1.2f);
         AnimatorSet animatorSet = new AnimatorSet();
