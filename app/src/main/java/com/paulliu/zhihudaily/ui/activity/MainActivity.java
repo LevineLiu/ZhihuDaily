@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatDelegate;
+import android.util.SparseArray;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -13,7 +14,6 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.paulliu.zhihudaily.R;
@@ -25,7 +25,6 @@ import com.paulliu.zhihudaily.ui.FragmentSwitcher;
 import com.paulliu.zhihudaily.ui.fragment.HomeFragment;
 import com.paulliu.zhihudaily.ui.fragment.ThemeFragment;
 
-import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
 
@@ -282,10 +281,10 @@ public class MainActivity extends BaseAppCompatActivity
                 getWindow().setStatusBarColor(getResources().getColor(R.color.colorPrimaryDark));
         }
 
-        Map<Integer, Fragment> fragmentMap = mFragmentSwitcher.getFragmentMap();
-        Set<Map.Entry<Integer, Fragment>> set = fragmentMap.entrySet();
-        for(Map.Entry<Integer, Fragment> map : set){
-            ((BaseFragment) map.getValue()).setDayNightMode();
+        SparseArray fragmentArray = mFragmentSwitcher.getFragmentArray();
+        for(int i=0; i<fragmentArray.size(); i++){
+            int key = fragmentArray.keyAt(i);
+            ((BaseFragment) fragmentArray.get(key)).setDayNightMode();
         }
     }
 

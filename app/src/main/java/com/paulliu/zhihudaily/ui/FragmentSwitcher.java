@@ -5,12 +5,8 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.util.SparseArray;
 import android.util.SparseIntArray;
-
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
-import java.util.Set;
 
 /**
  * Created on 16/4/20
@@ -23,37 +19,37 @@ public class FragmentSwitcher {
 
     private int mFragmentContainerId;
     private int mCurrentPosition;
-    private Map<Integer, Fragment> mFragmentMap;
-    private SparseIntArray mOperationMap;
+    private SparseArray<Fragment> mFragmentArray;
+    private SparseIntArray mOperationArray;
     private Context mContext;
 
     public FragmentSwitcher(Context context, int fragmentContainerId) {
         mFragmentContainerId = fragmentContainerId;
         mContext = context;
-        mFragmentMap = new HashMap<>();
-        mOperationMap = new SparseIntArray();
+        mFragmentArray = new SparseArray<>();
+        mOperationArray = new SparseIntArray();
     }
 
-    public Map<Integer, Fragment> getFragmentMap(){
-        return mFragmentMap;
+    public SparseArray<Fragment> getFragmentArray(){
+        return mFragmentArray;
     }
 
     public void addFragment(int position, Fragment fragment, int operation) {
-        mFragmentMap.put(position, fragment);
+        mFragmentArray.put(position, fragment);
         addFragment(fragment, position);
-        mOperationMap.put(position, operation);
+        mOperationArray.put(position, operation);
     }
 
     public Fragment getFragment(int position){
-        return mFragmentMap.get(position);
+        return mFragmentArray.get(position);
     }
 
     public void switchFragment(int position) {
-        if (position >= 0 && mFragmentMap.get(position) != null) {
-            if(mCurrentPosition == position && mFragmentMap.get(position).isAdded())
+        if (position >= 0 && mFragmentArray.get(position) != null) {
+            if(mCurrentPosition == position && mFragmentArray.get(position).isAdded())
                 return;
             mCurrentPosition = position;
-            switch (mOperationMap.get(position)) {
+            switch (mOperationArray.get(position)) {
                 case OPERATION_REPLACE:
                     replaceFragment(position);
                     break;
@@ -65,37 +61,38 @@ public class FragmentSwitcher {
     }
 
     public void removeFragment(int position){
-        if (mFragmentMap != null && mFragmentMap.get(position) != null) {
-            removeFragment(mFragmentMap.get(position));
-            mFragmentMap.remove(position);
+        if (mFragmentArray != null && mFragmentArray.get(position) != null) {
+            removeFragment(mFragmentArray.get(position));
+            mFragmentArray.remove(position);
         }
     }
 
     private void replaceFragment(int position) {
-        if (mFragmentMap != null && mFragmentMap.get(position) != null) {
+        if (mFragmentArray != null && mFragmentArray.get(position) != null) {
             FragmentManager fragmentManager = ((FragmentActivity) mContext).getSupportFragmentManager();
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-            fragmentTransaction.replace(mFragmentContainerId, mFragmentMap.get(position), position + "");
+            fragmentTransaction.replace(mFragmentContainerId, mFragmentArray.get(position), position + "");
             fragmentTransaction.commitAllowingStateLoss();
         }
     }
 
     private void showHideFragment(int position) {
-        if(mFragmentMap == null)
+        if(mFragmentArray == null)
             return;
 
-        Set<Map.Entry<Integer, Fragment>> set = mFragmentMap.entrySet();
-        for (Map.Entry<Integer, Fragment> map : set){
-            if(map.getValue() != null){
-                if(map.getKey() == position)
-                    showFragment(map.getValue());
+        for(int i = 0; i< mFragmentArray.size(); i++){
+            int key = mFragmentArray.keyAt(i);
+            Fragment targetFragment = mFragmentArray.get(key);
+            if(targetFragment != null){
+                if(key == position)
+                    showFragment(targetFragment);
                 else
-                    hideFragment(map.getValue());
-            }else {
+                    hideFragment(targetFragment);
+            }else{
                 FragmentManager fragmentManager = ((FragmentActivity) mContext).getSupportFragmentManager();
                 Fragment fragment = fragmentManager.findFragmentByTag(position + "");
                 if(fragment != null){
-                    if (map.getKey() == position)
+                    if (key == position)
                         showFragment(fragment);
                     else
                         hideFragment(fragment);
